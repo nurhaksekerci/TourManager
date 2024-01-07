@@ -1,6 +1,6 @@
 <hr class="my-4">
 <div id="formitem-{{ day.id }}">
-    <form hx-post="{% url 'create_operation_item' day.id %}" hx-target="#opertaion-day" hx-swap="beforeend" hx-trigger="click from:#submit-item-all">
+    <form hx-post="{% url 'create_operation_item' day.id %}" hx-target="#opertaion-day"  hx-on="htmx:afterRequest: this.closest('#close').remove()" hx-swap="beforeend" hx-trigger="click from:#submit-item-all">
         {% csrf_token %}  <!-- CSRF token ekleme -->
         <div class="row">
             <div class="col-md-3 align-self-end">

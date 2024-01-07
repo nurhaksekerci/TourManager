@@ -1,6 +1,8 @@
 from django.contrib import admin
 from django.urls import path
 from TourManager.views import *
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -99,3 +101,5 @@ urlpatterns = [
     path('create_operation_item_add/', create_operation_item_add, name='create_operation_item_add'),
     path('create_operation_item/<int:day_id>/', create_operation_item, name='create_operation_item'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
