@@ -1,0 +1,33 @@
+<form hx-post="{% url createUrl %}" hx-target="#personel-list" hx-swap="beforeend" hx-on="htmx:afterRequest: this.remove()" hx-trigger="click from:#submit-all">
+    {% csrf_token %}  <!-- CSRF token ekleme -->
+    <div class="row">
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.first_name.id_for_label }}">{{ form.first_name.label }}</label>
+            {{ form.first_name }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.last_name.id_for_label }}">{{ form.last_name.label }}</label>
+            {{ form.last_name }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.email.id_for_label }}">{{ form.email.label }}</label>
+            {{ form.email }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.username.id_for_label }}">{{ form.username.label }}</label>
+            {{ form.username }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.password.id_for_label }}">{{ form.password.label }}</label>
+            {{ form.password }}
+        </div>
+        <div class="col-md-1 align-self-end">
+            <label for="{{ form.is_active.id_for_label }}">{{ form.is_active.label }}</label><br>
+            {{ form.is_active }}
+        </div>
+        <div class="col-md-1 align-self-end">
+            <button type="button" class="btn btn-danger" hx-on="click: this.closest('form').remove()">İptal</button>
+        </div>
+    </div>
+</form>
+    

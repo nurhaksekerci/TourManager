@@ -1,0 +1,18 @@
+<tr id="transfer-{{ transfer.id }}" hx-swap="outerHTML swap:.5s">
+    <td colspan="11"> <!-- Tüm sütunları kapsayacak şekilde ayarlayın -->
+        <form hx-post="{% url 'edit_transfer' transfer.id %}" hx-target="#transfer-{{ transfer.id }}">
+            <table>
+                <tr>
+                    <td>
+                        <label for="{{ form.route.id_for_label }}">{{ form.route.label }}</label>
+                        {{ form.route }}
+                    </td>
+                    <td style="vertical-align: bottom;">
+                        <button type="submit" class="btn btn-success" style="margin-right: 2px;">Kaydet</button>
+                        <button type="button" class="btn btn-danger" hx-get="{% url 'cancel_transfer' transfer.id %}">İptal</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </td>
+</tr>

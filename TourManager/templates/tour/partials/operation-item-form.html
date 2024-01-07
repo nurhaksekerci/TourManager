@@ -1,0 +1,69 @@
+<hr class="my-4">
+<div id="formitem-{{ day.id }}">
+    <form hx-post="{% url 'create_operation_item' day.id %}" hx-target="#opertaion-day" hx-swap="beforeend" hx-trigger="click from:#submit-item-all">
+        {% csrf_token %}  <!-- CSRF token ekleme -->
+        <div class="row">
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.operation_type.id_for_label }}">{{ formitem.operation_type.label }}</label>
+                {{ formitem.operation_type }}
+            </div>
+            <div class="col-md-9 align-self-end">
+                <label for="{{ formitem.description.id_for_label }}">{{ formitem.description.label }}</label>
+                {{ formitem.description }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.tour.id_for_label }}">{{ formitem.tour.label }}</label>
+                {{ formitem.tour }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.transfer.id_for_label }}">{{ formitem.transfer.label }}</label>
+                {{ formitem.transfer }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.vehicle.id_for_label }}">{{ formitem.vehicle.label }}</label>
+                {{ formitem.vehicle }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.guide.id_for_label }}">{{ formitem.guide.label }}</label>
+                {{ formitem.guide }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.activity.id_for_label }}">{{ formitem.activity.label }}</label>
+                {{ formitem.activity }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.museum.id_for_label }}">{{ formitem.museum.label }}</label>
+                {{ formitem.museum }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.hotel.id_for_label }}">{{ formitem.hotel.label }}</label>
+                {{ formitem.hotel }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.room_type.id_for_label }}">{{ formitem.room_type.label }}</label>
+                {{ formitem.room_type }}
+            </div>
+            
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.activity_price.id_for_label }}">{{ formitem.activity_price.label }}</label>
+                {{ formitem.activity_price }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.museym_price.id_for_label }}">{{ formitem.museym_price.label }}</label>
+                {{ formitem.museym_price }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.hotel_price.id_for_label }}">{{ formitem.hotel_price.label }}</label>
+                {{ formitem.hotel_price }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.guide_price.id_for_label }}">{{ formitem.guide_price.label }}</label>
+                {{ formitem.guide_price }}
+                
+            </div>
+        </div>
+    </form>
+</div>
+    
+        
+    

@@ -1,0 +1,12 @@
+<tr id="transfer-{{ transfer.id }}"  hx-swap="outerHTML swap:.5s" target="this">
+    <td>{{ transfer.id }}</td>
+    <td>{{ transfer.route }}</td>
+    <td>
+        <button class="btn btn-secondary" hx-get="{% url 'edit_transfer' transfer.id %}" hx-target="#transfer-{{ transfer.id }}" hx-swap="outerHTML swap:.5s">
+            Güncelle
+        </button>
+        <button class="btn btn-secondary" hx-delete="{% url 'delete_transfer' transfer.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#transfer-{{ transfer.id }}">Sil</button>
+    </td>
+</tr>
+        
+        

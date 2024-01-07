@@ -1,0 +1,13 @@
+<tr id="activity-{{ activity.id }}"  hx-swap="outerHTML swap:.5s" target="this">
+    <td>{{ activity.id }}</td>
+    <td>{{ activity.name }}</td>
+    <td>{{ activity.city }}</td>
+    <td>
+        <button class="btn btn-secondary" hx-get="{% url 'edit_activity' activity.id %}" hx-target="#activity-{{ activity.id }}" hx-swap="outerHTML swap:.5s">
+            Güncelle
+        </button>
+        <button class="btn btn-secondary" hx-delete="{% url 'delete_activity' activity.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#activity-{{ activity.id }}">Sil</button>
+    </td>
+</tr>
+        
+        

@@ -1,0 +1,14 @@
+<tr id="buyer-{{ buyer.id }}"  hx-swap="outerHTML swap:.5s" target="this">
+    <td>{{ buyer.id }}</td>
+    <td>{{ buyer.name }}</td>
+    <td>{{ buyer.short_name }}</td>
+    <td>{{ buyer.contact }}</td>
+    <td>
+        <button class="btn btn-secondary" hx-get="{% url 'edit_buyer' buyer.id %}" hx-target="#buyer-{{ buyer.id }}" hx-swap="outerHTML swap:.5s">
+            Güncelle
+        </button>
+        <button class="btn btn-secondary" hx-delete="{% url 'delete_buyer' buyer.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#buyer-{{ buyer.id }}">Sil</button>
+    </td>
+</tr>
+        
+        

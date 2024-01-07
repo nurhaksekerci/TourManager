@@ -1,0 +1,41 @@
+<form hx-post="{% url createUrl %}" hx-target="#hotel-list" hx-swap="beforeend" hx-on="htmx:afterRequest: this.remove()" hx-trigger="click from:#submit-all">
+    {% csrf_token %}  <!-- CSRF token ekleme -->
+    <div class="row">
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+            {{ form.name }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+            {{ form.city }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.mail.id_for_label }}">{{ form.mail.label }}</label>
+            {{ form.mail }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.finish.id_for_label }}">{{ form.finish.label }}</label>
+            {{ form.finish }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.one_person.id_for_label }}">{{ form.one_person.label }}</label>
+            {{ form.one_person }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.two_person.id_for_label }}">{{ form.two_person.label }}</label>
+            {{ form.two_person }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.tree_person.id_for_label }}">{{ form.tree_person.label }}</label>
+            {{ form.tree_person }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.currency.id_for_label }}">{{ form.currency.label }}</label>
+            {{ form.currency }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <button type="button" class="btn btn-danger" hx-on="click: this.closest('form').remove()">İptal</button>
+        </div>
+    </div>
+</form>
+    

@@ -1,0 +1,20 @@
+<tr id="personel-{{ personel.id }}"  hx-swap="outerHTML swap:.5s" target="this">
+    <td>{{ personel.id }}</td>
+    <td>{{ personel.user.first_name }}</td>
+    <td>{{ personel.user.last_name }}</td>
+    <td>{{ personel.user.email }}</td>
+    <td>{{ personel.user.username }}</td>
+    {% if personel.is_active == True %}
+        <td>Evet</td>
+    {% else %}
+        <td>Hayır</td>
+    {% endif %}
+    <td>
+        <button class="btn btn-secondary" hx-get="{% url 'edit_personel' personel.id %}" hx-target="#personel-{{ personel.id }}" hx-swap="outerHTML swap:.5s">
+            Güncelle
+        </button>
+        <button class="btn btn-secondary" hx-delete="{% url 'delete_personel' personel.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#personel-{{ personel.id }}">Sil</button>
+    </td>
+</tr>
+        
+        

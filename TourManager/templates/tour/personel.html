@@ -1,0 +1,33 @@
+{% extends "tour/base.html" %}
+
+{% block content %}
+<h1 class="text-center my-5">{{ createtitle }}</h1>
+<div id="forms">
+    {% include 'tour/partials/personel-form.html' %}
+</div>
+<button class="btn btn-success my-4 me-2" hx-get="{% url createUrl %}" hx-target="#forms" hx-swap="beforeend">Form Ekle</button>
+<button type="button" class="btn btn-primary my-4"  id="submit-all">Kaydet</button>
+<h1> {{ listTitle }}</h1>
+<table class="table table-striped table-hover table-borderless table-light align-middle">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>AD</th>
+            <th>SOYAD</th>
+            <th>MAIL</th>
+            <th>KULLANICI ADI</th>
+            <th>AKTIF MI?</th>
+            <th>ISLEMLER</th>
+        </tr>
+    </thead>
+    <tbody id="personel-list">
+        {% for personel in personels %}
+            {% include "tour/partials/personel-list.html" %}
+        {% endfor %}
+    </tbody>
+</table>
+{% endblock content %}
+
+
+
+

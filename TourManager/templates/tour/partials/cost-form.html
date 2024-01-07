@@ -1,0 +1,45 @@
+<form hx-post="{% url createUrl %}" hx-target="#cost-list" hx-swap="beforeend" hx-on="htmx:afterRequest: this.remove()" hx-trigger="click from:#submit-all">
+    {% csrf_token %}  <!-- CSRF token ekleme -->
+    <div class="row">
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.supplier.id_for_label }}">{{ form.supplier.label }}</label>
+            {{ form.supplier }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.tour.id_for_label }}">{{ form.tour.label }}</label>
+            {{ form.tour }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.transfer.id_for_label }}">{{ form.transfer.label }}</label>
+            {{ form.transfer }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.car.id_for_label }}">{{ form.car.label }}</label>
+            {{ form.car }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.minivan.id_for_label }}">{{ form.minivan.label }}</label>
+            {{ form.minivan }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.minibus.id_for_label }}">{{ form.minibus.label }}</label>
+            {{ form.minibus }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.midibus.id_for_label }}">{{ form.midibus.label }}</label>
+            {{ form.midibus }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.bus.id_for_label }}">{{ form.bus.label }}</label>
+            {{ form.bus }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.currency.id_for_label }}">{{ form.currency.label }}</label>
+            {{ form.currency }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <button type="button" class="btn btn-danger" hx-on="click: this.closest('form').remove()">İptal</button>
+        </div>
+    </div>
+</form>
+    

@@ -1,0 +1,42 @@
+<tr id="guide-{{ guide.id }}" hx-swap="outerHTML swap:.5s">
+    <td colspan="11"> <!-- Tüm sütunları kapsayacak şekilde ayarlayın -->
+        <form hx-post="{% url 'edit_guide' guide.id %}" hx-target="#guide-{{ guide.id }}">
+            <table>
+                <tr>
+                    <td>
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        {{ form.name }}
+                    </td>
+                    <td>
+                        <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+                        {{ form.city }}
+                    </td>
+                    <td>
+                        <label for="{{ form.document_no.id_for_label }}">{{ form.document_no.label }}</label>
+                        {{ form.document_no }}
+                    </td>
+                    <td>
+                        <label for="{{ form.phone.id_for_label }}">{{ form.phone.label }}</label>
+                        {{ form.phone }}
+                    </td>
+                    <td>
+                        <label for="{{ form.mail.id_for_label }}">{{ form.mail.label }}</label>
+                        {{ form.mail }}
+                    </td>
+                    <td>
+                        <label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+                        {{ form.price }}
+                    </td>
+                    <td>
+                        <label for="{{ form.currency.id_for_label }}">{{ form.currency.label }}</label>
+                        {{ form.currency }}
+                    </td>
+                    <td style="vertical-align: bottom;">
+                        <button type="submit" class="btn btn-success" style="margin-right: 2px;">Kaydet</button>
+                        <button type="button" class="btn btn-danger" hx-get="{% url 'cancel_guide' guide.id %}">İptal</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </td>
+</tr>

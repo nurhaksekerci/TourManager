@@ -1,0 +1,13 @@
+<form hx-post="{% url createUrl %}" hx-target="#tour-list" hx-swap="beforeend" hx-on="htmx:afterRequest: this.remove()" hx-trigger="click from:#submit-all">
+    {% csrf_token %}  <!-- CSRF token ekleme -->
+    <div class="row">
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.route.id_for_label }}">{{ form.route.label }}</label>
+            {{ form.route }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <button type="button" class="btn btn-danger" hx-on="click: this.closest('form').remove()">İptal</button>
+        </div>
+    </div>
+</form>
+    

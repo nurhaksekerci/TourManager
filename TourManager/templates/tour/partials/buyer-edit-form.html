@@ -1,0 +1,26 @@
+<tr id="buyer-{{ buyer.id }}" hx-swap="outerHTML swap:.5s">
+    <td colspan="11"> <!-- Tüm sütunları kapsayacak şekilde ayarlayın -->
+        <form hx-post="{% url 'edit_buyer' buyer.id %}" hx-target="#buyer-{{ buyer.id }}">
+            <table>
+                <tr>
+                    <td>
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        {{ form.name }}
+                    </td>
+                    <td>
+                        <label for="{{ form.short_name.id_for_label }}">{{ form.short_name.label }}</label>
+                        {{ form.short_name }}
+                    </td>
+                    <td>
+                        <label for="{{ form.contact.id_for_label }}">{{ form.contact.label }}</label>
+                        {{ form.contact }}
+                    </td>
+                    <td style="vertical-align: bottom;">
+                        <button type="submit" class="btn btn-success" style="margin-right: 2px;">Kaydet</button>
+                        <button type="button" class="btn btn-danger" hx-get="{% url 'cancel_buyer' buyer.id %}">İptal</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </td>
+</tr>

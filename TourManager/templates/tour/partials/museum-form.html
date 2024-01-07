@@ -1,0 +1,29 @@
+<form hx-post="{% url createUrl %}" hx-target="#museum-list" hx-swap="beforeend" hx-on="htmx:afterRequest: this.remove()" hx-trigger="click from:#submit-all">
+    {% csrf_token %}  <!-- CSRF token ekleme -->
+    <div class="row">
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+            {{ form.name }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+            {{ form.city }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.contact.id_for_label }}">{{ form.contact.label }}</label>
+            {{ form.contact }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+            {{ form.price }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.currency.id_for_label }}">{{ form.currency.label }}</label>
+            {{ form.currency }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <button type="button" class="btn btn-danger" hx-on="click: this.closest('form').remove()">İptal</button>
+        </div>
+    </div>
+</form>
+    

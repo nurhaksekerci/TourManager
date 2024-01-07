@@ -1,0 +1,51 @@
+<tr id="cost-{{ cost.id }}" hx-swap="outerHTML swap:.5s">
+    <td colspan="11"> <!-- Tüm sütunları kapsayacak şekilde ayarlayın -->
+        <form hx-post="{% url 'edit_cost' cost.id %}" hx-target="#cost-{{ cost.id }}">
+            <table>
+                <tr>
+                    <td class="align-self-end">
+                        <label for="{{ form.supplier.id_for_label }}">{{ form.supplier.label }}</label>
+                        {{ form.supplier }}
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.tour.id_for_label }}">{{ form.tour.label }}</label>
+                        {{ form.tour }}
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.transfer.id_for_label }}">{{ form.transfer.label }}</label>
+                        {{ form.transfer }}
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.car.id_for_label }}">{{ form.car.label }}</label>
+                        {{ form.car }}
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.minivan.id_for_label }}">{{ form.minivan.label }}</label>
+                        {{ form.minivan }}
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.minibus.id_for_label }}">{{ form.minibus.label }}</label>
+                        {{ form.minibus }}
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.midibus.id_for_label }}">{{ form.midibus.label }}</label>
+                        {{ form.midibus }}
+                    </td>
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.bus.id_for_label }}">{{ form.bus.label }}</label>
+                        {{ form.bus }}
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.currency.id_for_label }}">{{ form.currency.label }}</label>
+                        {{ form.currency }}
+                    </td>
+                    <td style="vertical-align: bottom;" class="align-self-end">
+                        <button type="submit" class="btn btn-success" style="margin-right: 2px;">Kaydet</button>
+                        <button type="button" class="btn btn-danger" hx-get="{% url 'cancel_cost' cost.id %}">İptal</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </td>
+</tr>

@@ -1,0 +1,24 @@
+{% extends "tour/base.html" %}
+
+{% block content %}
+<div id="close">
+    <h1 class="text-center my-5">{{ createtitle }}</h1>
+    <div id="forms">
+        {% include 'tour/partials/operation-form.html' %}
+    </div>
+    <div class="row my-4">
+        <div class="col-12">
+            <button class="btn btn-success" id="submit-all">Oluştur</button>
+        </div>
+    </div>
+    <div class="row my-4" id="opertaion-day" hx-swap="beforeend">
+        <h1 class="text-center my-5">Operasyon Detayı</h1>
+        {% include 'tour/partials/operation-day.html' %}
+    </div>
+    <button class="btn btn-success" id="submit-item-all" hx-on="click: this.closest('#close').remove()">Kaydet</button>
+</div>
+{% endblock content %}
+
+
+
+

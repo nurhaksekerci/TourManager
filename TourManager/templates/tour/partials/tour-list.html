@@ -1,0 +1,12 @@
+<tr id="tour-{{ tour.id }}"  hx-swap="outerHTML swap:.5s" target="this">
+    <td>{{ tour.id }}</td>
+    <td>{{ tour.route }}</td>
+    <td>
+        <button class="btn btn-secondary" hx-get="{% url 'edit_tour' tour.id %}" hx-target="#tour-{{ tour.id }}" hx-swap="outerHTML swap:.5s">
+            Güncelle
+        </button>
+        <button class="btn btn-secondary" hx-delete="{% url 'delete_tour' tour.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#tour-{{ tour.id }}">Sil</button>
+    </td>
+</tr>
+        
+        

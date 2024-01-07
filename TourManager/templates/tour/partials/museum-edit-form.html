@@ -1,0 +1,34 @@
+<tr id="museum-{{ museum.id }}" hx-swap="outerHTML swap:.5s">
+    <td colspan="11"> <!-- Tüm sütunları kapsayacak şekilde ayarlayın -->
+        <form hx-post="{% url 'edit_museum' museum.id %}" hx-target="#museum-{{ museum.id }}">
+            <table>
+                <tr>
+                    <td>
+                        <label for="{{ form.name.id_for_label }}">{{ form.name.label }}</label>
+                        {{ form.name }}
+                    </td>
+                    <td>
+                        <label for="{{ form.city.id_for_label }}">{{ form.city.label }}</label>
+                        {{ form.city }}
+                    </td>
+                    <td>
+                        <label for="{{ form.contact.id_for_label }}">{{ form.contact.label }}</label>
+                        {{ form.contact }}
+                    </td>
+                    <td>
+                        <label for="{{ form.price.id_for_label }}">{{ form.price.label }}</label>
+                        {{ form.price }}
+                    </td>
+                    <td>
+                        <label for="{{ form.currency.id_for_label }}">{{ form.currency.label }}</label>
+                        {{ form.currency }}
+                    </td>
+                    <td style="vertical-align: bottom;">
+                        <button type="submit" class="btn btn-success" style="margin-right: 2px;">Kaydet</button>
+                        <button type="button" class="btn btn-danger" hx-get="{% url 'cancel_museum' museum.id %}">İptal</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </td>
+</tr>

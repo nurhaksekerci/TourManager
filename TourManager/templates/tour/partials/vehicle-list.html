@@ -1,0 +1,13 @@
+<tr id="vehicle-{{ vehicle.id }}"  hx-swap="outerHTML swap:.5s" target="this">
+    <td>{{ vehicle.id }}</td>
+    <td>{{ vehicle.vehicle }}</td>
+    <td>{{ vehicle.capacity }}</td>
+    <td>
+        <button class="btn btn-secondary" hx-get="{% url 'edit_vehicle' vehicle.id %}" hx-target="#vehicle-{{ vehicle.id }}" hx-swap="outerHTML swap:.5s">
+            Güncelle
+        </button>
+        <button class="btn btn-secondary" hx-delete="{% url 'delete_vehicle' vehicle.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#vehicle-{{ vehicle.id }}">Sil</button>
+    </td>
+</tr>
+        
+        

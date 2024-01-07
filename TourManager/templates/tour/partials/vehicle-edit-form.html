@@ -1,0 +1,24 @@
+<tr id="vehicle-{{ vehicle.id }}" hx-swap="outerHTML swap:.5s">
+    <td colspan="11"> <!-- Tüm sütunları kapsayacak şekilde ayarlayın -->
+        <form hx-post="{% url 'edit_vehicle' vehicle.id %}" hx-target="#vehicle-{{ vehicle.id }}">
+            <table>
+                <tr>
+                    <td>
+                        <label for="{{ form.vehicle.id_for_label }}">{{ form.vehicle.label }}</label>
+                        {{ form.vehicle }}
+                    </td>
+                    <td>
+                        <label for="{{ form.capacity.id_for_label }}">{{ form.capacity.label }}</label>
+                        {{ form.capacity }}
+                    </td>
+                    
+                    
+                    <td style="vertical-align: bottom;">
+                        <button type="submit" class="btn btn-success" style="margin-right: 2px;">Kaydet</button>
+                        <button type="button" class="btn btn-danger" hx-get="{% url 'cancel_vehicle' vehicle.id %}">İptal</button>
+                    </td>
+                </tr>
+            </table>
+        </form>
+    </td>
+</tr>
