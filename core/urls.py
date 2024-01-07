@@ -96,6 +96,7 @@ urlpatterns = [
     
     
     path('operation/', operation, name='operation'),
+    path('delete_operation/<int:operation_id>', delete_operation, name='delete_operation'),
     path('operation_list/', operation_list, name='operation_list'),
     path('create_operation/', create_operation, name='create_operation'),
     path('create_operation_item_add/', create_operation_item_add, name='create_operation_item_add'),

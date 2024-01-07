@@ -11,9 +11,12 @@
             <strong>Bitiş Tarihi:</strong> {{ operation.finish|date:"d.m.Y" }}
         </div>
         <h2 class="text-center" style="transform: translateX(-50%)">{{ operation.ticket }}</h2>
-        <button onclick="printOperation('operation-{{ forloop.counter }}')" class="btn btn-light">
-            <i class="fa fa-print"></i> Yazdır
-        </button>
+        <div>
+            <button onclick="printOperation('operation-{{ forloop.counter }}')" class="btn btn-light">
+                <i class="fa fa-print"></i> Yazdır
+            </button>
+            <button class="btn btn-secondary" hx-delete="{% url 'delete_operation' operation.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#operation-{{ forloop.counter }}">Sil</button>
+        </div>
     </div>
     
     <div class="card-body">

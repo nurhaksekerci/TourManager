@@ -916,6 +916,7 @@ def create_operation(request):
         form = OperationForm(request.POST or None)
         if form.is_valid():
             operasyon = form.save(commit=False)
+            operasyon.selling_staff = requestPersonel
             operasyon.company = sirket
             operasyon.save()
             baslangic_tarihi = operasyon.start
@@ -972,3 +973,11 @@ def operation_list(request):
     # Operasyonlarla ilişkili günleri ve günlerin operasyon öğelerini çeken sorgu
     operasyonlar = Operation.objects.all().order_by('-create_date').prefetch_related('operationday_set', 'operationday_set__operationitem_set')
     return render(request, 'tour/operation_list.html', {'operations': operasyonlar, 'title': 'Operasyon', 'createtitle': 'Operasyon Listesi'})
+
+
+    
+def delete_operation(request, operation_id):
+    if request.method == "DELETE":
+        operation = get_object_or_404(Operation, id=operation_id)
+        operation.delete()
+        return HttpResponse('')  # Boş bir yanıt döndür

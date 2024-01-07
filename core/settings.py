@@ -123,7 +123,8 @@ SHORT_DATETIME_FORMAT = 'd.m.Y H:i'
 
 
 # Static files (CSS, JavaScript, Images)
-STATIC_URL = '/static/'
+STATIC_URL = '/static_root/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static_root')
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
