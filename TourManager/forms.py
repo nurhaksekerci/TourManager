@@ -228,3 +228,50 @@ class OperationItemForm(forms.ModelForm):
             'activity_price': forms.NumberInput(attrs={'class': 'form-control'}),
             'museym_price': forms.NumberInput(attrs={'class': 'form-control'})
         }
+
+class CostAddVehicleForm(forms.ModelForm):
+    class Meta:
+        model = OperationItem
+        fields = ['cost',]
+        widgets = {
+            'cost': forms.Select(attrs={'class': 'form-control'}),
+        }
+
+
+
+class CostAddHotelForm(forms.ModelForm):
+    class Meta:
+        model = OperationItem
+        fields = ['hotel', 'room_type', 'hotel_price']
+        widgets = {
+            'hotel': forms.Select(attrs={'class': 'form-control'}),
+            'room_type': forms.Select(attrs={'class': 'form-control'}),
+            'hotel_price': forms.NumberInput(attrs={'class': 'form-control'})
+        }
+
+
+class CostAddGuideForm(forms.ModelForm):
+    class Meta:
+        model = OperationItem
+        fields = ['guide', 'guide_price']
+        widgets = {
+            'guide': forms.Select(attrs={'class': 'form-control'}),
+            'guide_price': forms.NumberInput(attrs={'class': 'form-control'})
+        }
+
+class CostAddActivityForm(forms.ModelForm):
+    class Meta:
+        model = OperationItem
+        fields = ['activity_cost', 'activity_price']
+        widgets = {
+            'activity_cost': forms.Select(attrs={'class': 'form-control'}),
+            'activity_price': forms.NumberInput(attrs={'class': 'form-control'})
+        }
+
+class CostAddMuseumForm(forms.ModelForm):
+    class Meta:
+        model = OperationItem
+        fields = ['museym_price',]
+        widgets = {
+            'museym_price': forms.NumberInput(attrs={'class': 'form-control'})
+        }

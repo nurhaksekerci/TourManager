@@ -10,71 +10,72 @@
             <strong>Başlangıç Tarihi:</strong> {{ operation.start|date:"d.m.Y" }} <br>
             <strong>Bitiş Tarihi:</strong> {{ operation.finish|date:"d.m.Y" }}
         </div>
-        <h2 class="text-center" style="transform: translateX(-50%)">{{ operation.ticket }}</h2>
+        <div>
+            <h2 class="text-center" style="transform: translateX(-50%)">{{ operation.ticket }}</h2>
+            <pre>{{ operation.passenger_info }}</pre>
+        </div>
         <div>
             <button onclick="printOperation('operation-{{ forloop.counter }}')" class="btn btn-light">
                 <i class="fa fa-print"></i> Yazdır
             </button>
+            <a href="{% url 'update_operation' operation.id %}" class="btn btn-secondary">Düzenle</a>
             <button class="btn btn-secondary" hx-delete="{% url 'delete_operation' operation.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#operation-{{ forloop.counter }}">Sil</button>
         </div>
     </div>
     
     <div class="card-body">
         {% for day in operation.operationday_set.all %}
-        <h5 class="card-title">Tarih: {{ day.date|date:"d.m.Y" }}</h5>
-        <table class="table table-bordered table-striped table-hover">
-            <thead class="thead-light">
-                <tr>
-                    <th>Şirket</th>
-                    <th>Gün</th>
-                    <th>İşlem Türü</th>
-                    <th>Açıklama</th>
-                    <th>Tur</th>
-                    <th>Transfer</th>
-                    <th>Araç</th>
-                    <th>Rehber</th>
-                    <th>Aktivite</th>
-                    <th>Müze</th>
-                    <th>Otel</th>
-                    <th>Oda Türü</th>
-                    <th>Otel Ücreti</th>
-                    <th>Rehber Ücreti</th>
-                    <th>Aktivite Ücreti</th>
-                    <th>Müze Ücreti</th>
-                    <th>Araç Tedarikçi</th>
-                    <th>Aktivite Tedarikçi</th>
-                </tr>
-            </thead>
-            <tbody>
-                {% for item in day.operationitem_set.all %}
-                <tr>
-                    <td>{{ item.company }}</td>
-                    <td>{{ item.day|date:"d.m.Y" }}</td>
-                    <td>{{ item.get_operation_type_display }}</td>
-                    <td>{{ item.description|default:"----" }}</td>
-                    <td>{{ item.tour|default:"----" }}</td>
-                    <td>{{ item.transfer|default:"----" }}</td>
-                    <td>{{ item.vehicle|default:"----" }}</td>
-                    <td>{{ item.guide|default:"----" }}</td>
-                    <td>{{ item.activity|default:"----" }}</td>
-                    <td>{{ item.museum|default:"----" }}</td>
-                    <td>{{ item.hotel|default:"----" }}</td>
-                    <td>{{ item.get_room_type_display }}</td>
-                    <td>{{ item.hotel_price|default:"----" }}</td>
-                    <td>{{ item.guide_price|default:"----" }}</td>
-                    <td>{{ item.activity_price|default:"----" }}</td>
-                    <td>{{ item.museum_price|default:"----" }}</td>
-                    <td>{{ item.cost|default:"----" }}</td>
-                    <td>{{ item.activity_cost|default:"----" }}</td>
-                </tr>
-                {% endfor %}
-            </tbody>
-        </table>
-        
-        
+            <h5 class="card-title">Tarih: {{ day.date|date:"d.m.Y" }}</h5>
+            <table class="table table-bordered table-striped table-hover">
+                <thead class="thead-light">
+                    <tr>
+                        <th>Şirket</th>
+                        <th>Gün</th>
+                        <th>İşlem Türü</th>
+                        <th>Açıklama</th>
+                        <th>Tur</th>
+                        <th>Transfer</th>
+                        <th>Araç</th>
+                        <th>Rehber</th>
+                        <th>Aktivite</th>
+                        <th>Müze</th>
+                        <th>Otel</th>
+                        <th>Oda Türü</th>
+                        <th>Otel Ücreti</th>
+                        <th>Rehber Ücreti</th>
+                        <th>Aktivite Ücreti</th>
+                        <th>Müze Ücreti</th>
+                        <th>Araç Tedarikçi</th>
+                        <th>Aktivite Tedarikçi</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for item in day.operationitem_set.all %}
+                    <tr>
+                        <td>{{ item.company }}</td>
+                        <td>{{ item.day|date:"d.m.Y" }}</td>
+                        <td>{{ item.get_operation_type_display }}</td>
+                        <td>{{ item.description|default:"----" }}</td>
+                        <td>{{ item.tour|default:"---" }}</td>
+                        <td>{{ item.transfer|default:"----" }}</td>
+                        <td>{{ item.vehicle|default:"----" }}</td>
+                        <td>{{ item.guide|default:"----" }}</td>
+                        <td>{{ item.activity|default:"----" }}</td>
+                        <td>{{ item.museum|default:"----" }}</td>
+                        <td>{{ item.hotel|default:"----" }}</td>
+                        <td>{{ item.get_room_type_display }}</td>
+                        <td>{{ item.hotel_price|default:"----" }}</td>
+                        <td>{{ item.guide_price|default:"----" }}</td>
+                        <td>{{ item.activity_price|default:"----" }}</td>
+                        <td>{{ item.museum_price|default:"----" }}</td>
+                        <td>{{ item.cost|default:"----" }}</td>
+                        <td>{{ item.activity_cost|default:"----" }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
         {% endfor %}
     </div>
-    <a href="#" class="btn btn-primary print-hide">Detay</a>
 </div>
 {% empty %}
     <div class="alert alert-warning" role="alert">

@@ -1,0 +1,127 @@
+{% extends "tour/base.html" %}
+
+{% block content %}
+<form method="post">
+    {% csrf_token %}
+    
+    <!-- Operation Form Alanları -->
+    <div class="row">
+        <div class="col-md-2 align-self-end">
+            <label for="{{ operation_form.follow_staff.id_for_label }}">{{ operation_form.follow_staff.label }}</label>
+            {{ operation_form.follow_staff }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ operation_form.buyer_company.id_for_label }}">{{ operation_form.buyer_company.label }}</label>
+            {{ operation_form.buyer_company }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ operation_form.start.id_for_label }}">{{ operation_form.start.label }}</label>
+            {{ operation_form.start }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ operation_form.finish.id_for_label }}">{{ operation_form.finish.label }}</label>
+            {{ operation_form.finish }}
+        </div>
+        <div class="col-md-1 align-self-end">
+            <label for="{{ operation_form.number_passengers.id_for_label }}">{{ operation_form.number_passengers.label }}</label>
+            {{ operation_form.number_passengers }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ operation_form.sales_price.id_for_label }}">{{ operation_form.sales_price.label }}</label>
+            {{ operation_form.sales_price }}
+        </div>
+        <div class="col-md-1 align-self-end">
+            <label for="{{ operation_form.currency.id_for_label }}">{{ operation_form.currency.label }}</label>
+            {{ operation_form.currency }}
+        </div>
+        <div class="col-md-4 align-self-end">
+            <label for="{{ operation_form.passenger_info.id_for_label }}">{{ operation_form.passenger_info.label }}</label>
+            {{ operation_form.passenger_info }}
+        </div>
+    </div>
+
+    <hr>
+
+    <!-- Operation Day ve Operation Item Formları -->
+    {% for day_form, item_forms in operation_day_forms %}
+        <div class="form-group">
+            {{ day_form.as_p }}
+            
+            <div class="form-group">
+                <h4>Operation Items</h4>
+                {% for formitem in item_forms %}
+                    <div class="border p-3 mb-2">
+                        <h5>Item</h5>
+                        <div class="row">
+                            {{ formitem.id }}
+                            {% if forloop.first %}
+                                <input type="hidden" name="items-{{ forloop.parentloop.counter0 }}-TOTAL_FORMS" id="id_items-{{ forloop.parentloop.counter0 }}-TOTAL_FORMS" value="{{ item_forms|length }}">
+                                <input type="hidden" name="items-{{ forloop.parentloop.counter0 }}-INITIAL_FORMS" id="id_items-{{ forloop.parentloop.counter0 }}-INITIAL_FORMS" value="{{ item_forms|length }}">
+                            {% endif %}
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.operation_type.id_for_label }}">{{ formitem.operation_type.label }}</label>
+                                {{ formitem.operation_type }}
+                            </div>
+                            <div class="col-md-9 align-self-end">
+                                <label for="{{ formitem.description.id_for_label }}">{{ formitem.description.label }}</label>
+                                {{ formitem.description }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.tour.id_for_label }}">{{ formitem.tour.label }}</label>
+                                {{ formitem.tour }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.transfer.id_for_label }}">{{ formitem.transfer.label }}</label>
+                                {{ formitem.transfer }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.vehicle.id_for_label }}">{{ formitem.vehicle.label }}</label>
+                                {{ formitem.vehicle }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.guide.id_for_label }}">{{ formitem.guide.label }}</label>
+                                {{ formitem.guide }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.activity.id_for_label }}">{{ formitem.activity.label }}</label>
+                                {{ formitem.activity }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.museum.id_for_label }}">{{ formitem.museum.label }}</label>
+                                {{ formitem.museum }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.hotel.id_for_label }}">{{ formitem.hotel.label }}</label>
+                                {{ formitem.hotel }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.room_type.id_for_label }}">{{ formitem.room_type.label }}</label>
+                                {{ formitem.room_type }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.activity_price.id_for_label }}">{{ formitem.activity_price.label }}</label>
+                                {{ formitem.activity_price }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.museum_price.id_for_label }}">{{ formitem.museum_price.label }}</label>
+                                {{ formitem.museum_price }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.hotel_price.id_for_label }}">{{ formitem.hotel_price.label }}</label>
+                                {{ formitem.hotel_price }}
+                            </div>
+                            <div class="col-md-3 align-self-end">
+                                <label for="{{ formitem.guide_price.id_for_label }}">{{ formitem.guide_price.label }}</label>
+                                {{ formitem.guide_price }}
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        <hr>
+    {% endfor %}
+
+    <button type="submit" class="btn btn-success">Operasyonu Güncelle</button>
+</form>
+{% endblock %}

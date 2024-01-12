@@ -1,0 +1,37 @@
+
+        <tr>
+            <td>{{ today.day.operation.ticket|default:"----" }}</td>
+            <td>{{ today.operation_type|default:"----" }}</td>
+            <td>{{ today.description|default:"----" }}</td>
+            <td>{{ today.tour|default:"---" }}</td>
+            <td>{{ today.transfer|default:"----" }}</td>
+            <td>{{ today.vehicle|default:"----" }}</td>
+            <td>{{ today.guide|default:"----" }}</td>
+            <td>{{ today.activity|default:"----" }}</td>
+            <td>{{ today.museum|default:"----" }}</td>
+            <td>{{ today.hotel|default:"----" }}</td>
+            <td>{{ today.room_type|default:"----" }}</td>
+            {% if today.hotel_price == 0 %}
+                <td>----</td>
+            {% else %}
+                <td>{{ today.hotel_price }}</td>
+            {% endif %}
+            {% if today.guide_price == 0 %}
+                <td>----</td>
+            {% else %}
+                <td>{{ today.guide_price }}</td>
+            {% endif %}
+            {% if today.activity_price == 0 %}
+                <td>----</td>
+            {% else %}
+                <td>{{ today.activity_price }}</td>
+            {% endif %}
+            {% if today.museym_price == 0 %}
+                <td>----</td>
+            {% else %}
+                <td>{{ today.museym_price }}</td>
+            {% endif %}
+
+            <td>{{ today.cost|default:"----" }}</td>
+            <td>{{ today.activity_cost|default:"----" }}</td>
+        </tr>

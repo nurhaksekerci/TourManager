@@ -8,6 +8,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', login, name='login'),
     path('logout/', logout, name='logout'),
+    path('index/', index, name='index'),
 
 
     
@@ -101,6 +102,11 @@ urlpatterns = [
     path('create_operation/', create_operation, name='create_operation'),
     path('create_operation_item_add/', create_operation_item_add, name='create_operation_item_add'),
     path('create_operation_item/<int:day_id>/', create_operation_item, name='create_operation_item'),
+    path('update_operation/<int:operation_id>/', update_operation, name='update_operation'),
+
+
+
+    path('cost_add/', cost_add, name='cost_add'),
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

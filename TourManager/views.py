@@ -1,4 +1,4 @@
-from datetime import timedelta
+from datetime import datetime, timedelta
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login as auth_login
@@ -173,9 +173,9 @@ def vehicle(request):
     sirket = requestPersonel.company
     
     context={
-        'title' : 'Araç',
-        'createtitle' : 'Araç Oluştur',
-        'listTitle' : 'Araçlar Listesi',
+        'title': 'Araç (车辆)',
+        'createtitle': 'Araç Oluştur (创建车辆)',
+        'listTitle': 'Araçlar Listesi (车辆列表)',
         'createUrl' : 'create_vehicle',
         'deleteUrl' : 'delete_vehicle',
         'form' : VehicleForm(),
@@ -896,8 +896,9 @@ def operation(request):
     sirket = requestPersonel.company
     
     context={
-        'title' : 'Operasyon Kur',
-        'createtitle' : 'Operasyon Oluştur',
+        
+        'title': 'Operasyon Kur (操作设置)',
+        'createtitle': 'Operasyon Oluştur (创建操作)',
         'createUrl' : 'create_operation',
         'deleteUrl' : 'delete_buyer',
         'form' : OperationForm(),
@@ -981,3 +982,124 @@ def delete_operation(request, operation_id):
         operation = get_object_or_404(Operation, id=operation_id)
         operation.delete()
         return HttpResponse('')  # Boş bir yanıt döndür
+    
+
+def index(request):
+    requestPersonel = Personel.objects.get(user=request.user)
+    sirket = requestPersonel.company
+
+    # Dates
+    today = datetime.today()
+    tomorrow = today + timedelta(days=1)
+    start_of_week = today - timedelta(days=today.weekday())  # Monday
+    end_of_week = start_of_week + timedelta(days=6)  # Sunday
+
+    # Queries
+    today_jobs = OperationItem.objects.filter(company=sirket, day__date=today)
+    tomorrow_jobs = OperationItem.objects.filter(company=sirket, day__date=tomorrow)
+    week_jobs = OperationItem.objects.filter(company=sirket, day__date__range=[start_of_week, end_of_week])
+
+    # Context
+    context = {
+        'today_jobs': today_jobs,
+        'tomorrow_jobs': tomorrow_jobs,
+        'week_jobs': week_jobs,
+        'todaytitle': 'Bugünün İşleri',
+        'tomorrowtitle': 'Yarının İşleri',
+        'weektitle': 'Bu Haftanın İşleri',
+        'title': 'İşler'
+    }
+
+    return render(request, 'tour/index.html', context)
+from django.forms import inlineformset_factory
+
+
+
+from django.forms import modelformset_factory
+
+
+def update_operation(request, operation_id):
+    operation = get_object_or_404(Operation, id=operation_id)
+    operation_form = OperationForm(request.POST or None, instance=operation)
+
+    if request.method == 'POST':
+        if operation_form.is_valid():
+            saved_operation = operation_form.save()
+            
+            for day in OperationDay.objects.filter(operation=saved_operation):
+                day_form = OperationDayForm(request.POST, instance=day, prefix=f'day-{day.id}')
+                if day_form.is_valid():
+                    saved_day = day_form.save()
+
+                    OperationItemFormset = modelformset_factory(OperationItem, form=OperationItemForm, extra=0)
+                    item_formset = OperationItemFormset(
+                        request.POST, 
+                        queryset=OperationItem.objects.filter(day=saved_day), 
+                        prefix=f'items-{saved_day.id}'
+                    )
+
+                    if item_formset.is_valid():
+                        item_formset.save()
+                    else:
+                        # Formset hatalarını işleyin ve hata mesajlarını görüntüleyin
+                        print(f"OperationItem formset errors for day {saved_day.id}: {item_formset.errors}")
+                else:
+                    # Day form hatalarını işleyin ve hata mesajlarını görüntüleyin
+                    print(f"OperationDay form errors for day {day.id}: {day_form.errors}")
+            return redirect('operation_list')
+        else:
+            # Operation form hatalarını işleyin ve hata mesajlarını görüntüleyin
+            print(f"Operation form errors: {operation_form.errors}")
+
+    operation_day_forms = prepare_operation_day_forms(operation)
+    context = {
+        'operation_form': operation_form,
+        'operation_day_forms': operation_day_forms,
+        'operation_id': operation_id,
+    }
+    return render(request, 'tour/update_operation.html', context)
+
+def prepare_operation_day_forms(operation):
+    operation_day_forms = []
+    for day in OperationDay.objects.filter(operation=operation):
+        day_form = OperationDayForm(instance=day, prefix=f'day-{day.id}')
+        OperationItemFormset = modelformset_factory(OperationItem, form=OperationItemForm, extra=0)
+        item_formset = OperationItemFormset(
+            queryset=OperationItem.objects.filter(day=day), 
+            prefix=f'items-{day.id}'
+        )
+        operation_day_forms.append((day_form, item_formset))
+    return operation_day_forms
+
+
+def cost_add(request):
+    requestPersonel = Personel.objects.get(user=request.user)
+    sirket = requestPersonel.company
+    tour_cost = OperationItem.objects.filter(company=sirket, tour__isnull=False)
+    transfer_cost = OperationItem.objects.filter(company=sirket, transfer__isnull=False)
+    guide_cost = OperationItem.objects.filter(company=sirket, guide_price=1)
+    hotel_cost = OperationItem.objects.filter(company=sirket, hotel_price=1)
+    museum_cost = OperationItem.objects.filter(company=sirket, museym_price=1)
+    activity_cost = OperationItem.objects.filter(company=sirket, activity_price=1)
+    vehicle_cost = CostAddVehicleForm()
+    hotel_costform = CostAddHotelForm()
+    guide_costform = CostAddGuideForm()
+    activity_costform = CostAddActivityForm()
+    museum_costform = CostAddMuseumForm()
+    context={
+        'tour_cost' : tour_cost,
+        'transfer_cost' : transfer_cost,
+        'guide_cost' : guide_cost,
+        'hotel_cost' : hotel_cost,
+        'museum_cost' : museum_cost,
+        'activity_cost' : activity_cost,
+        'vehicle_cost' : vehicle_cost,
+        'hotel_costform' : hotel_costform,
+        'guide_costform' : guide_costform,
+        'activity_costform' : activity_costform,
+        'museum_costform' : museum_costform,
+    }
+    
+    return render(request, 'tour/cost_add.html', context)
+
+    

@@ -4,9 +4,9 @@
     <td>{{ vehicle.capacity }}</td>
     <td>
         <button class="btn btn-secondary" hx-get="{% url 'edit_vehicle' vehicle.id %}" hx-target="#vehicle-{{ vehicle.id }}" hx-swap="outerHTML swap:.5s">
-            Güncelle
+            Güncelle (更新)
         </button>
-        <button class="btn btn-secondary" hx-delete="{% url 'delete_vehicle' vehicle.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#vehicle-{{ vehicle.id }}">Sil</button>
+        <button class="btn btn-secondary" hx-delete="{% url 'delete_vehicle' vehicle.id %}" hx-confirm="Silmek istediğine emin misin? (你确定要删除吗？)" hx-target="#vehicle-{{ vehicle.id }}">Sil (删除)</button>
     </td>
 </tr>
         

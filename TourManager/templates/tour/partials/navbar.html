@@ -7,53 +7,58 @@
       <div class="collapse navbar-collapse" id="navbarText">
         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'vehicle' %}">Araçlar</a>
+            <a class="nav-link" href="{% url 'vehicle' %}">Araçlar<br>(车辆)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'transfer' %}">Transferler</a>
+            <a class="nav-link" href="{% url 'transfer' %}">Transferler<br>(转移)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'tour' %}">Turlar</a>
+            <a class="nav-link" href="{% url 'tour' %}">Turlar<br>(旅游)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'guide' %}">Rehberler</a>
+            <a class="nav-link" href="{% url 'guide' %}">Rehberler<br>(导游)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'hotel' %}">Oteller</a>
+            <a class="nav-link" href="{% url 'hotel' %}">Oteller<br>(酒店)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'activity' %}">Aktiviteler</a>
+            <a class="nav-link" href="{% url 'activity' %}">Aktiviteler<br>(活动)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'museum' %}">Müzeler</a>
+            <a class="nav-link" href="{% url 'museum' %}">Müzeler<br>(博物馆)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'personel' %}">Personeller</a>
+            <a class="nav-link" href="{% url 'personel' %}">Personeller<br>(员工)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'cost' %}">Maaliyet</a>
+            <a class="nav-link" href="{% url 'cost' %}">Maaliyet<br>(成本)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'supplier' %}">Araç Tedarikçi</a>
+            <a class="nav-link" href="{% url 'supplier' %}">Araç Tedarikçi<br>(车辆供应商)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'activity_supplier' %}">Aktivite Tedarikçi</a>
+            <a class="nav-link" href="{% url 'activity_supplier' %}">Aktivite Tedarikçi<br>(活动供应商)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'buyer' %}">Firmalar</a>
+            <a class="nav-link" href="{% url 'buyer' %}">Firmalar<br>(公司)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'operation' %}">Operasyon Oluştur</a>
+            <a class="nav-link" href="{% url 'operation' %}">Operasyon Oluştur<br>(创建操作)</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{% url 'operation_list' %}">Operasyonlar</a>
+            <a class="nav-link" href="{% url 'operation_list' %}">Operasyonlar<br>(操作)</a>
           </li>
-          
-          
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'index' %}">İşler<br>(工作)</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cost_add' %}">Tedarikci Atama<br>(分配供应商)</a>
+          </li>
         </ul>
         <span class="navbar-text">
-          <a href="{% url 'logout' %}">Çıkış Yap</a>
+          <a href="{% url 'logout' %}">Çıkış Yap<br>(登出)</a>
         </span>
       </div>
+    
     </div>
 </nav>
