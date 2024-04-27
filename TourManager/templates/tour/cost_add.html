@@ -1,97 +1,21 @@
 {% extends "tour/base.html" %}
 
 {% block content %}
-<h1>Tur Atamaları</h1>
-<hr>
-<div class="row">
-    {% for item in tour_cost %}
-    <div class="col-md-3 mb-4">
-        <div class="card">
-            <div class="card-header">
-                {{ item.day.operation.ticket }}
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled">
-                    <li><strong>İşlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
-                    <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
-                    <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
-                    <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
-                    <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
-                    <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
-                    <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
-                    <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
-                    <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
-                    <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
-                    <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
-                    <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
-                    <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
-                    <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
-                    <li><strong>Araç Tedarikçi:</strong> {{ item.cost|default:"----" }}</li>
-                    <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
-                </ul>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ vehicle_cost.as_p }}
-                    <button type="submit" class="btn btn-success">Kaydet</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-
-<h1>Transfer Atamaları</h1>
-<hr>
-<div class="row">
-    {% for item in transfer_cost %}
-    <div class="col-md-3 mb-4">
-        <div class="card">
-            <div class="card-header">
-                {{ item.day.operation.ticket }}
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled">
-                    <li><strong>İşlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
-                    <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
-                    <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
-                    <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
-                    <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
-                    <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
-                    <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
-                    <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
-                    <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
-                    <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
-                    <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
-                    <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
-                    <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
-                    <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
-                    <li><strong>Araç Tedarikçi:</strong> {{ item.cost|default:"----" }}</li>
-                    <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
-                </ul>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ vehicle_cost.as_p }}
-                    <button type="submit" class="btn btn-success">Kaydet</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    {% endfor %}
-</div>
-
-<h1>Otel Atamaları</h1>
-<hr>
-<div class="row">
-    {% for item in hotel_cost %}
+<div class="container">
+    <h1>Tur Atamaları</h1>
+    <hr>
+    <div class="row">
+        {% for item in tour_cost %}
         <div class="col-md-3 mb-4">
             <div class="card">
                 <div class="card-header">
-                    {{ item.day.operation.ticket }}
+                    {{ item.day.operation.ticket }} - {{ item.day.date }}
                 </div>
                 <div class="card-body">
                     <ul class="list-unstyled">
                         <li><strong>İşlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
                         <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
+                        <li><strong>Alış Saati:</strong> {% if item.pick_time %}{{ item.pick_time|date:"H:i" }}{% else %}----{% endif %}</li>
                         <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
                         <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
                         <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
@@ -104,135 +28,274 @@
                         <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
                         <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
                         <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
-                        <li><strong>Araç Tedarikçi:</strong> {{ item.cost|default:"----" }}</li>
+                        <li><strong>Araç Tedarikçi:</strong> {{ item.supplier|default:"----" }}</li>
                         <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
+                        <li><strong>Şoför:</strong> {{ item.driver|default:"----" }}</li>
+                        <li><strong>Şoför Telefon:</strong> {{ item.driver_phone|default:"----" }}</li>
+                        <li><strong>Plaka:</strong> {{ item.plaka|default:"----" }}</li>
                     </ul>
-                    <form method="POST">
-                        {% csrf_token %}
-                        {{ hotel_costform.as_p }}
+                    <form hx-post="{% url 'vehicle_cost_add' item.id %}">
+                        {{ vehicle_cost.as_p }}
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </form>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <h1>Transfer Atamaları</h1>
+    <hr>
+    <div class="row">
+        {% for item in transfer_cost %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    {{ item.day.operation.ticket }} - {{ item.day.date }}
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>İşlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
+                        <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
+                        <li><strong>Alış Saati:</strong> {% if item.pick_time %}{{ item.pick_time|date:"H:i" }}{% else %}----{% endif %}</li>
+                        <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
+                        <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
+                        <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
+                        <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
+                        <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
+                        <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
+                        <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
+                        <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
+                        <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
+                        <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
+                        <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
+                        <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
+                        <li><strong>Araç Tedarikçi:</strong> {{ item.supplier|default:"----" }}</li>
+                        <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
+                        <li><strong>Şoför:</strong> {{ item.driver|default:"----" }}</li>
+                        <li><strong>Şoför Telefon:</strong> {{ item.driver_phone|default:"----" }}</li>
+                        <li><strong>Plaka:</strong> {{ item.plaka|default:"----" }}</li>
+                    </ul>
+                    <form hx-post="{% url 'vehicle_cost_add' item.id %}">
+                        {{ vehicle_cost.as_p }}
                         <button type="submit" class="btn btn-success">Kaydet</button>
                     </form>
                 </div>
             </div>
         </div>
-    {% endfor %}
-</div>
+        {% endfor %}
+    </div>
 
-<h1>Rehber Atamaları</h1>
-<hr>
-<div class="row">
-    {% for item in guide_cost %}
-    <div class="col-md-3 mb-4">
-        <div class="card">
-            <div class="card-header">
-                {{ item.day.operation.ticket }}
+    <h1>Otel Atamaları</h1>
+    <hr>
+    <div class="row">
+        {% for item in hotel_cost %}
+            <div class="col-md-3 mb-4">
+                <div class="card">
+                    <div class="card-header">
+                        {{ item.day.operation.ticket }} - {{ item.day.date }}
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-unstyled">
+                            <li><strong>İşlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
+                            <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
+                            <li><strong>Alış Saati:</strong> {% if item.pick_time %}{{ item.pick_time|date:"H:i" }}{% else %}----{% endif %}</li>
+                            <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
+                            <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
+                            <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
+                            <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
+                            <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
+                            <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
+                            <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
+                            <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
+                            <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
+                            <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
+                            <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
+                            <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
+                            <li><strong>Araç Tedarikçi:</strong> {{ item.supplier|default:"----" }}</li>
+                            <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
+                            <li><strong>Şoför:</strong> {{ item.driver|default:"----" }}</li>
+                            <li><strong>Şoför Telefon:</strong> {{ item.driver_phone|default:"----" }}</li>
+                            <li><strong>Plaka:</strong> {{ item.plaka|default:"----" }}</li>
+                        </ul>
+                        <form hx-post="{% url 'hotel_cost_add' item.id %}">
+                            {{ hotel_costform.as_p }}
+                            <button type="submit" class="btn btn-success">Kaydet</button>
+                        </form>
+                    </div>
+                </div>
             </div>
-            <div class="card-body">
-                <ul class="list-unstyled">
-                    <li><strong>İşlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
-                    <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
-                    <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
-                    <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
-                    <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
-                    <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
-                    <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
-                    <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
-                    <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
-                    <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
-                    <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
-                    <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
-                    <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
-                    <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
-                    <li><strong>Araç Tedarikçi:</strong> {{ item.cost|default:"----" }}</li>
-                    <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
-                </ul>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ guide_costform.as_p }}
-                    <button type="submit" class="btn btn-success">Kaydet</button>
-                </form>
+        {% endfor %}
+    </div>
+
+    <h1>Rehber Atamaları</h1>
+    <hr>
+    <div class="row">
+        {% for item in guide_cost %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    {{ item.day.operation.ticket }} - {{ item.day.date }}
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>İşlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
+                        <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
+                        <li><strong>Alış Saati:</strong> {% if item.pick_time %}{{ item.pick_time|date:"H:i" }}{% else %}----{% endif %}</li>
+                        <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
+                        <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
+                        <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
+                        <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
+                        <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
+                        <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
+                        <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
+                        <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
+                        <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
+                        <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
+                        <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
+                        <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
+                        <li><strong>Araç Tedarikçi:</strong> {{ item.supplier|default:"----" }}</li>
+                        <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
+                        <li><strong>Şoför:</strong> {{ item.driver|default:"----" }}</li>
+                        <li><strong>Şoför Telefon:</strong> {{ item.driver_phone|default:"----" }}</li>
+                        <li><strong>Plaka:</strong> {{ item.plaka|default:"----" }}</li>
+                    </ul>
+                    <form hx-post="{% url 'guide_cost_add' item.id %}">
+                        {{ guide_costform.as_p }}
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </form>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
-<h1>Aktivite Atamaları</h1>
-<hr>
-<div class="row">
-    {% for item in activity_cost %}
-    <div class="col-md-3 mb-4">
-        <div class="card">
-            <div class="card-header">
-                {{ item.day.operation.ticket }}
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled">
-                    <li><strong>İşlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
-                    <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
-                    <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
-                    <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
-                    <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
-                    <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
-                    <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
-                    <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
-                    <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
-                    <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
-                    <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
-                    <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
-                    <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
-                    <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
-                    <li><strong>Araç Tedarikçi:</strong> {{ item.cost|default:"----" }}</li>
-                    <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
-                </ul>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ activity_costform.as_p }}
-                    <button type="submit" class="btn btn-success">Kaydet</button>
-                </form>
+    <h1>Aktivite Atamaları</h1>
+    <hr>
+    <div class="row">
+        {% for item in activity_cost %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    {{ item.day.operation.ticket }} - {{ item.day.date }}
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>İşlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
+                        <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
+                        <li><strong>Alış Saati:</strong> {% if item.pick_time %}{{ item.pick_time|date:"H:i" }}{% else %}----{% endif %}</li>
+                        <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
+                        <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
+                        <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
+                        <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
+                        <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
+                        <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
+                        <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
+                        <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
+                        <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
+                        <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
+                        <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
+                        <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
+                        <li><strong>Araç Tedarikçi:</strong> {{ item.supplier|default:"----" }}</li>
+                        <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
+                        <li><strong>Şoför:</strong> {{ item.driver|default:"----" }}</li>
+                        <li><strong>Şoför Telefon:</strong> {{ item.driver_phone|default:"----" }}</li>
+                        <li><strong>Plaka:</strong> {{ item.plaka|default:"----" }}</li>
+                    </ul>
+                    <form hx-post="{% url 'activity_cost_add' item.id %}">
+                        {{ activity_costform.as_p }}
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </form>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
-</div>
 
-<h1>Müze Atamaları</h1>
-<hr>
-<div class="row">
-    {% for item in museum_cost %}
-    <div class="col-md-3 mb-4">
-        <div class="card">
-            <div class="card-header">
-                {{ item.day.operation.ticket }}
-            </div>
-            <div class="card-body">
-                <ul class="list-unstyled">
-                    <li><strong>işlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
-                    <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
-                    <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
-                    <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
-                    <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
-                    <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
-                    <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
-                    <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
-                    <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
-                    <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
-                    <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
-                    <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
-                    <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
-                    <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
-                    <li><strong>Araç Tedarikçi:</strong> {{ item.cost|default:"----" }}</li>
-                    <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
-                </ul>
-                <form method="POST">
-                    {% csrf_token %}
-                    {{ museum_costform.as_p }}
-                    <button type="submit" class="btn btn-success">Kaydet</button>
-                </form>
+    <h1>Müze Atamaları</h1>
+    <hr>
+    <div class="row">
+        {% for item in museum_cost %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    {{ item.day.operation.ticket }} - {{ item.day.date }}
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>işlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
+                        <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
+                        <li><strong>Alış Saati:</strong> {% if item.pick_time %}{{ item.pick_time|date:"H:i" }}{% else %}----{% endif %}</li>
+                        <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
+                        <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
+                        <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
+                        <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
+                        <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
+                        <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
+                        <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
+                        <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
+                        <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
+                        <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
+                        <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
+                        <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
+                        <li><strong>Araç Tedarikçi:</strong> {{ item.supplier|default:"----" }}</li>
+                        <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
+                        <li><strong>Şoför:</strong> {{ item.driver|default:"----" }}</li>
+                        <li><strong>Şoför Telefon:</strong> {{ item.driver_phone|default:"----" }}</li>
+                        <li><strong>Plaka:</strong> {{ item.plaka|default:"----" }}</li>
+                    </ul>
+                    <form hx-post="{% url 'museum_cost_add' item.id %}">
+                        {{ museum_costform.as_p }}
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </form>
+                </div>
             </div>
         </div>
+        {% endfor %}
     </div>
-    {% endfor %}
+
+    <h1>Şoför Atamaları</h1>
+    <hr>
+    <div class="row">
+        {% for item in driver_cost %}
+        <div class="col-md-3 mb-4">
+            <div class="card">
+                <div class="card-header">
+                    {{ item.day.operation.ticket }} - {{ item.day.date }}
+                </div>
+                <div class="card-body">
+                    <ul class="list-unstyled">
+                        <li><strong>işlem Türü:</strong> {{ item.get_operation_type_display|default:"----" }}</li>
+                        <li><strong>Açıklama:</strong> {{ item.description|default:"----" }}</li>
+                        <li><strong>Alış Saati:</strong> {% if item.pick_time %}{{ item.pick_time|date:"H:i" }}{% else %}----{% endif %}</li>
+                        <li><strong>Tur:</strong> {{ item.tour|default:"---" }}</li>
+                        <li><strong>Transfer:</strong> {{ item.transfer|default:"----" }}</li>
+                        <li><strong>Araç:</strong> {{ item.vehicle|default:"----" }}</li>
+                        <li><strong>Rehber:</strong> {{ item.guide|default:"----" }}</li>
+                        <li><strong>Aktivite:</strong> {{ item.activity|default:"----" }}</li>
+                        <li><strong>Müze:</strong> {{ item.museum|default:"----" }}</li>
+                        <li><strong>Otel:</strong> {{ item.hotel|default:"----" }}</li>
+                        <li><strong>Oda Türü:</strong> {{ item.get_room_type_display }}</li>
+                        <li><strong>Otel Ücreti:</strong> {{ item.hotel_price|default:"----" }}</li>
+                        <li><strong>Rehber Ücreti:</strong> {{ item.guide_price|default:"----" }}</li>
+                        <li><strong>Aktivite Ücreti:</strong> {{ item.activity_price|default:"----" }}</li>
+                        <li><strong>Müze Ücreti:</strong> {{ item.museum_price|default:"----" }}</li>
+                        <li><strong>Araç Tedarikçi:</strong> {{ item.supplier|default:"----" }}</li>
+                        <li><strong>Aktivite Tedarikçi:</strong> {{ item.activity_cost|default:"----" }}</li>
+                        <li><strong>Şoför:</strong> {{ item.driver|default:"----" }}</li>
+                        <li><strong>Şoför Telefon:</strong> {{ item.driver_phone|default:"----" }}</li>
+                        <li><strong>Plaka:</strong> {{ item.plaka|default:"----" }}</li>
+                    </ul>
+                    <form hx-post="{% url 'drive_cost_add' item.id %}">
+                        {{ driver_form.as_p }}
+                        <button type="submit" class="btn btn-success">Kaydet</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
 </div>
 {% endblock content %}
 

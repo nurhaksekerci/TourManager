@@ -11,8 +11,8 @@
                         <label for="{{ form.capacity.id_for_label }}">{{ form.capacity.label }}</label>
                         {{ form.capacity }}
                     </td>
-                    
-                    
+
+
                     <td style="vertical-align: bottom;">
                         <button type="submit" class="btn btn-success" style="margin-right: 2px;">Kaydet (保存)</button>
                         <button type="button" class="btn btn-danger" hx-get="{% url 'cancel_vehicle' vehicle.id %}">İptal (取消)</button>

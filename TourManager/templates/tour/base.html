@@ -18,7 +18,19 @@
         />
         <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css" rel="stylesheet">
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Admin Panel Log in</title>
+        <!-- Tell the browser to be responsive to screen width -->
+        <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
+        <!-- Bootstrap 3.3.6 -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css" integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
+      <!-- Font Awesome -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
+        <script src="https://unpkg.com/xlsx/dist/xlsx.full.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
 
+        <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
         <style>
             tr.htmx-swapping td {
                 opacity: 0;
@@ -27,6 +39,9 @@
             @media print {
                 .print-hide {
                     display: none;
+                }
+                .print_dnone {
+                    display: none !important;
                 }
             }
         </style>
@@ -37,7 +52,7 @@
             {% include "tour/partials/navbar.html" %}
         </header>
         <main>
-            <div class="container">
+            <div class="container-fluid">
             {% block content %}{% endblock content %}
             </div>
         </main>
@@ -53,6 +68,32 @@
             integrity="sha384-BBtl+eGJRgqQAUMxJ7pMwbEyER4l1g+O15P+16Ep7Q9Q+zqX6gSbd85u4mG4QzX+"
             crossorigin="anonymous"
         ></script>
+        <script>
+            // Bütün input[type="text"] öğelerini seç ve bir değişkene ata
+            var textInputs = document.querySelectorAll('input[type="text"]');
+
+            // Her bir text input öğesi için bir olay dinleyicisi ekle
+            textInputs.forEach(function(input) {
+                input.addEventListener('input', function() {
+                    // Kullanıcının girdiği değeri büyük harfe çevir ve input'un değerini güncelle
+                    input.value = input.value.toUpperCase();
+                });
+            });
+
+        </script>
+        <script>
+            // Hem input[type="text"] hem de textarea öğelerini seç ve bir değişkene ata
+            var textElements = document.querySelectorAll('input[type="text"], textarea');
+
+            // Her bir text elementi için bir olay dinleyicisi ekle
+            textElements.forEach(function(element) {
+                element.addEventListener('input', function() {
+                    // Kullanıcının girdiği değeri büyük harfe çevir ve elementin değerini güncelle
+                    element.value = element.value.toUpperCase();
+                });
+            });
+
+        </script>
         {% block js %}{% endblock js %}
     </body>
 </html>

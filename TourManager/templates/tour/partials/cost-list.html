@@ -9,6 +9,11 @@
     <td>{{ cost.midibus }}</td>
     <td>{{ cost.bus }}</td>
     <td>{{ cost.currency }}</td>
+    <td>{{ cost.sell_car }}</td>
+    <td>{{ cost.sell_minivan }}</td>
+    <td>{{ cost.sell_minibus }}</td>
+    <td>{{ cost.sell_midibus }}</td>
+    <td>{{ cost.sell_bus }}</td>
     <td>
         <button class="btn btn-secondary" hx-get="{% url 'edit_cost' cost.id %}" hx-target="#cost-{{ cost.id }}" hx-swap="outerHTML swap:.5s">
             Güncelle
@@ -16,5 +21,4 @@
         <button class="btn btn-secondary" hx-delete="{% url 'delete_cost' cost.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#cost-{{ cost.id }}">Sil</button>
     </td>
 </tr>
-        
-        
+

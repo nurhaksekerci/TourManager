@@ -1,64 +1,160 @@
 <nav class="navbar navbar-expand-lg bg-body-tertiary">
     <div class="container-fluid">
-      <a class="navbar-brand" href="#">Carga Tour</a>
-      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-      </button>
-      <div class="collapse navbar-collapse" id="navbarText">
-        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'vehicle' %}">Araçlar<br>(车辆)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'transfer' %}">Transferler<br>(转移)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'tour' %}">Turlar<br>(旅游)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'guide' %}">Rehberler<br>(导游)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'hotel' %}">Oteller<br>(酒店)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'activity' %}">Aktiviteler<br>(活动)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'museum' %}">Müzeler<br>(博物馆)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'personel' %}">Personeller<br>(员工)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'cost' %}">Maaliyet<br>(成本)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'supplier' %}">Araç Tedarikçi<br>(车辆供应商)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'activity_supplier' %}">Aktivite Tedarikçi<br>(活动供应商)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'buyer' %}">Firmalar<br>(公司)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'operation' %}">Operasyon Oluştur<br>(创建操作)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'operation_list' %}">Operasyonlar<br>(操作)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'index' %}">İşler<br>(工作)</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'cost_add' %}">Tedarikci Atama<br>(分配供应商)</a>
-          </li>
-        </ul>
-        <span class="navbar-text">
-          <a href="{% url 'logout' %}">Çıkış Yap<br>(登出)</a>
-        </span>
-      </div>
-    
+        <a class="navbar-brand" href="#">Carga Tour</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarText">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+                <!-- Dropdown for Kayıtlar -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownKayitlar" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Kayıtlar<br>(记录)
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownKayitlar">
+                        <li><a class="dropdown-item" href="{% url 'vehicle' %}">Araçlar<br>(车辆)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'transfer' %}">Transferler<br>(转移)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'tour' %}">Turlar<br>(旅游)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'guide' %}">Rehberler<br>(导游)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'hotel' %}" target=_blank >Oteller<br>(酒店)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'activity' %}">Aktiviteler<br>(活动)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'museum' %}">Müzeler<br>(博物馆)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'buyer' %}">Firmalar<br>(公司)</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown for Yönetim -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownYonetim" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Yönetim<br>(管理)
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownYonetim">
+                        <li><a class="dropdown-item" href="{% url 'personel' %}">Personeller<br>(员工)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'cost' %}">Maaliyet<br>(成本)</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown for Tedarikçi -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTedarikci" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Tedarikçi Listesi<br>(供应商)
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownTedarikci">
+                        <li><a class="dropdown-item" href="{% url 'supplier' %}">Araç Tedarikçi<br>(车辆供应商)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'activity_supplier' %}">Aktivite Tedarikçi<br>(活动供应商)</a></li>
+                    </ul>
+                </li>
+                <!-- Dropdown for Tedarikçi -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownTedarikci" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Tedarikçi Atama<br>(供应商)
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownTedarikci">
+                        <li><a class="dropdown-item" href="{% url 'cost_add' %}">Tedarikci Atama<br>(分配供应商)</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown for Operasyon -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOperasyon" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Operasyon<br>(操作)
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownOperasyon">
+                        <li><a class="dropdown-item" href="{% url 'operation' %}">Operasyon Oluştur<br>(创建操作)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'operation_list' %}">Operasyonlar<br>(操作)</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown for İşler -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownIsler" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        İşler<br>(工作)
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownIsler">
+                        <li><a class="dropdown-item" href="{% url 'index' %}">İşler<br>(工作)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'indexim' %}">İşlerim<br>(工作)</a></li>
+                        <li><a class="dropdown-item" href="{% url 'comp_jobs' %}">Tamamlanmış İşler<br>(工作)</a></li>
+                    </ul>
+                </li>
+
+                <!-- Dropdown for Fiyatlandırma -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFiyatlandirma" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Fiyatlandırma<br>(定价)
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownFiyatlandirma">
+                        <li><a class="dropdown-item" href="{% url 'create_fiyatlandirma' %}">Fiyatlandırma Oluştur</a></li>
+                        <li><a class="dropdown-item" href="{% url 'fiyatlandırma_list' %}">Fiyatlandırma Listesi</a></li>
+                    </ul>
+                </li>
+                <!-- Dropdown for Fiyatlandırma -->
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFiyatlandirma" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Cariler
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownFiyatlandirma">
+                        <li><a class="dropdown-item" href="{% url 'cari' %}">Maliyet</a></li>
+                        <li><a class="dropdown-item" href="{% url 'cari' %}">Tedarikçi Ödemeleri</a></li>
+                        <li><a class="dropdown-item" href="{% url 'activity_cari' %}">Aktivite Tedarikçi Ödemeleri</a></li>
+                        <li><a class="dropdown-item" href="{% url 'cari' %}">Karlılık</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownFiyatlandirma" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Loglar
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownFiyatlandirma">
+                        <li><a class="dropdown-item" href="{% url 'logs' %}">Loglar</a></li>
+                        <li><a class="dropdown-item" href="{% url 'login_logs' %}">Giriş-Çıkış Logları</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOdeme" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Ödemeler
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownOdeme">
+                        <li><a class="dropdown-item" href="{% url 'customer_payment' %}">Ödeme Al</a></li>
+                        <li><a class="dropdown-item" href="{% url 'cost_payment' %}">Ödeme Yap</a></li>
+                        <li><a class="dropdown-item" href="#">Tur Ödeme Görüntüle</a></li>
+                        <li><a class="dropdown-item" href="#">Tedarikçi Ödeme Görüntüle</a></li>
+                    </ul>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOdeme" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Eğitimler(Yakında...)
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownOdeme">
+                        <li><a class="dropdown-item" href="#">Satış Personeli Eğitimleri</a></li>
+                        <li><a class="dropdown-item" href="#">Tedarikçi Atama Eğitimleri</a></li>
+                        <li><a class="dropdown-item" href="#">Cari Eğitimleri</a></li>
+                        <li><a class="dropdown-item" href="#">Yönetici Eğitimleri</a></li>
+                    </ul>
+                </li>
+                </li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOdeme" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Anketler(Yakında...)
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownOdeme">
+                        <li><a class="dropdown-item" href="#">Sistem Geliştirme Anketi</a></li>
+                    </ul>
+                </li>
+
+            </ul>
+            <span class="navbar-text">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item dropdown" style="list-style:none;">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownOdeme" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <span>{{ request.user.get_full_name }}</span><br><span>{{ user.personel.first.job }}</span>
+
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="navbarDropdownOdeme">
+                            <li><a class="dropdown-item" href="{% url 'logout' %}">Çıkış Yap<br>(登出)</a></li>
+                        </ul>
+                    </li>
+                {% endif %}
+            </span>
+        </div>
     </div>
 </nav>

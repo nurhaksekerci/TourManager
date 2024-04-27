@@ -1,87 +1,34 @@
 {% extends "tour/base.html" %}
 
 {% block content %}
-<h1 class="text-center my-5">{{ createtitle }}</h1>
-{% for operation in operations %}
-<div class="card my-4" id="operation-{{ forloop.counter }}">
-    <div class="card-header d-flex justify-content-between align-items-center">
-        <div>
-            <strong>Şirket:</strong> {{ operation.company }} <br>
-            <strong>Başlangıç Tarihi:</strong> {{ operation.start|date:"d.m.Y" }} <br>
-            <strong>Bitiş Tarihi:</strong> {{ operation.finish|date:"d.m.Y" }}
-        </div>
-        <div>
-            <h2 class="text-center" style="transform: translateX(-50%)">{{ operation.ticket }}</h2>
-            <pre>{{ operation.passenger_info }}</pre>
-        </div>
-        <div>
-            <button onclick="printOperation('operation-{{ forloop.counter }}')" class="btn btn-light">
-                <i class="fa fa-print"></i> Yazdır
-            </button>
-            <a href="{% url 'update_operation' operation.id %}" class="btn btn-secondary">Düzenle</a>
-            <button class="btn btn-secondary" hx-delete="{% url 'delete_operation' operation.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#operation-{{ forloop.counter }}">Sil</button>
-        </div>
+<div class="p-5">
+
+    <h1 class="text-center my-5">{{ createtitle }}</h1>
+    <div class="row">
+    <div class="col-2">
+        <ul class="list-group">
+            {% if comp == True %}
+                {% for supp in supplier %}
+                  <li class="list-group-item"><button class="btn w-100 text-left">{{ supp.ticket }}</button></li>
+                {% empty %}
+                    <li class="list-group-item"><button>Hiç operasyon kaydı bulunamadı.</button></li>
+                {% endfor %}
+            {% else %}
+                {% for operation in operations %}
+                  <li class="list-group-item"><button class="btn w-100 text-left" hx-get="{% url 'operation_details' operation.id %}" hx-target="#operation-details" hx-swap="innerHTML">{{ operation.ticket }}</button></li>
+                {% empty %}
+                    <li class="list-group-item"><button>Hiç operasyon kaydı bulunamadı.</button></li>
+                {% endfor %}
+            {% endif %}
+        </ul>
     </div>
-    
-    <div class="card-body">
-        {% for day in operation.operationday_set.all %}
-            <h5 class="card-title">Tarih: {{ day.date|date:"d.m.Y" }}</h5>
-            <table class="table table-bordered table-striped table-hover">
-                <thead class="thead-light">
-                    <tr>
-                        <th>Şirket</th>
-                        <th>Gün</th>
-                        <th>İşlem Türü</th>
-                        <th>Açıklama</th>
-                        <th>Tur</th>
-                        <th>Transfer</th>
-                        <th>Araç</th>
-                        <th>Rehber</th>
-                        <th>Aktivite</th>
-                        <th>Müze</th>
-                        <th>Otel</th>
-                        <th>Oda Türü</th>
-                        <th>Otel Ücreti</th>
-                        <th>Rehber Ücreti</th>
-                        <th>Aktivite Ücreti</th>
-                        <th>Müze Ücreti</th>
-                        <th>Araç Tedarikçi</th>
-                        <th>Aktivite Tedarikçi</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {% for item in day.operationitem_set.all %}
-                    <tr>
-                        <td>{{ item.company }}</td>
-                        <td>{{ item.day|date:"d.m.Y" }}</td>
-                        <td>{{ item.get_operation_type_display }}</td>
-                        <td>{{ item.description|default:"----" }}</td>
-                        <td>{{ item.tour|default:"---" }}</td>
-                        <td>{{ item.transfer|default:"----" }}</td>
-                        <td>{{ item.vehicle|default:"----" }}</td>
-                        <td>{{ item.guide|default:"----" }}</td>
-                        <td>{{ item.activity|default:"----" }}</td>
-                        <td>{{ item.museum|default:"----" }}</td>
-                        <td>{{ item.hotel|default:"----" }}</td>
-                        <td>{{ item.get_room_type_display }}</td>
-                        <td>{{ item.hotel_price|default:"----" }}</td>
-                        <td>{{ item.guide_price|default:"----" }}</td>
-                        <td>{{ item.activity_price|default:"----" }}</td>
-                        <td>{{ item.museum_price|default:"----" }}</td>
-                        <td>{{ item.cost|default:"----" }}</td>
-                        <td>{{ item.activity_cost|default:"----" }}</td>
-                    </tr>
-                    {% endfor %}
-                </tbody>
-            </table>
-        {% endfor %}
+    <div class="col-10" id="operation-details">
+
+        {% if comp == False %}
+            {% include 'tour/partials/operation_details.html' %}
+        {% endif %}
     </div>
 </div>
-{% empty %}
-    <div class="alert alert-warning" role="alert">
-        Hiç operasyon kaydı bulunamadı.
-    </div>
-{% endfor %}
 
 {% endblock content %}
 {% block js %}
@@ -90,23 +37,113 @@
         var operationElement = document.getElementById(operationId);
         var printContents = operationElement.innerHTML;
         var originalContents = document.body.innerHTML;
+
+        // Detay butonlarını ve print_dnone sınıfına sahip öğeleri gizle
         var detailButtons = operationElement.getElementsByClassName('btn-detail');
-    
-        // Detay butonlarını gizle
+        var printDnoneElements = operationElement.getElementsByClassName('print_dnone');
+
         Array.from(detailButtons).forEach(function(button) {
             button.style.display = 'none';
         });
-    
+
+        Array.from(printDnoneElements).forEach(function(element) {
+            element.style.display = 'none';
+        });
+
         // Yazdırma işlemi
         document.body.innerHTML = printContents;
         window.print();
-    
-        // Orijinal içeriği ve butonları geri yükle
+
+        // Orijinal içeriği, butonları ve print_dnone öğelerini geri yükle
         document.body.innerHTML = originalContents;
+
         Array.from(detailButtons).forEach(function(button) {
             button.style.display = 'block';
         });
+
+        // Not: Bu adım gereksiz olabilir çünkü orijinal içeriği geri yüklediğimizde,
+        // print_dnone sınıfına sahip öğelerin görünürlüğü de otomatik olarak eski haline gelecektir.
+        // Ancak, spesifik bir durum için tekrar görünür yapmak isterseniz, bu kodu kullanabilirsiniz.
+        Array.from(printDnoneElements).forEach(function(element) {
+            element.style.display = 'block';
+        });
     }
-    
 </script>
+<script>
+function downloadExcel() {
+    // ID'lerden verileri al
+    const tourDetails = [
+        ["Şirket", document.getElementById("company").innerText],
+        ["Başlangıç Tarihi", document.getElementById("startDate").innerText],
+        ["Bitiş Tarihi", document.getElementById("endDate").innerText],
+        ["Oluşturulma Tarihi", document.getElementById("creationDate").innerText],
+        ["Oluşturan", document.getElementById("createdBy").innerText],
+        ["Takip Eden", document.getElementById("followedBy").innerText],
+        ["Satış Fiyatı", document.getElementById("salesPrice").innerText],
+        ["Maliyet Fiyatı", document.getElementById("costPrice").innerText],
+        ["", ""] // Tablo ile bilgiler arasında boşluk bırakmak için
+    ];
+
+    // SheetJS ile yeni bir workbook oluştur
+    var wb = XLSX.utils.book_new();
+
+    // Tur detaylarını ve tabloyu içeren bir sheet oluştur
+    var ws = XLSX.utils.aoa_to_sheet(tourDetails);
+
+    // Tur detay başlıklarını kalın yap
+    const headerStyle = { font: { bold: true } };
+    tourDetails.forEach((row, rowIndex) => {
+        if (rowIndex < tourDetails.length - 1) { // Son boş satır hariç
+            const cellRef = XLSX.utils.encode_cell({c: 0, r: rowIndex});
+            if (!ws[cellRef]) ws[cellRef] = {};
+            ws[cellRef].s = headerStyle;
+        }
+    });
+
+    // Tabloyu seç ve mevcut sheet'e ekleyin
+    var table = document.getElementById("table-id");
+    XLSX.utils.sheet_add_dom(ws, table, {
+        origin: -1, // origin: -1, mevcut verilerin sonuna ekler
+        sheetStubs: true // Hücreler boş olsa bile hücre nesnelerini oluşturur
+    });
+
+    // Tablo başlıklarını kalın yap
+    const tableHeaderRows = table.querySelectorAll('th');
+    tableHeaderRows.forEach((th, index) => {
+        const cellRef = XLSX.utils.encode_cell({c: index, r: tourDetails.length}); // tourDetails.length, tablo başlıklarının başladığı satırı belirler
+        if (!ws[cellRef]) ws[cellRef] = {};
+        ws[cellRef].s = headerStyle;
+    });
+
+    // 'etiket' ID'sine sahip elementten içerik al
+    const etiketContent = document.getElementById("etiket").innerText;
+
+    // G1:H1:I1 hücrelerini birleştir ve 'etiket' içeriğini yaz
+    if (!ws['!merges']) ws['!merges'] = []; // Eğer merges özelliği yoksa oluştur
+    ws['!merges'].push({ s: { r: 0, c: 6 }, e: { r: 0, c: 8 } }); // G1:I1 hücrelerini birleştir
+    ws[XLSX.utils.encode_cell({ r: 0, c: 6 })] = { t: 's', v: etiketContent };
+
+    // 'yolcu' ID'sine sahip <pre> elementinden içerik al ve satırlara ayır
+    const yolcuContent = document.getElementById("yolcu").innerText;
+    const yolcuLines = yolcuContent.split('\n');
+
+    // Yolcu bilgilerini Excel'e yaz
+    yolcuLines.forEach((line, index) => {
+        const cellRef = XLSX.utils.encode_cell({ r: 1 + index, c: 6 }); // G2'den itibaren başla
+        ws[cellRef] = { t: 's', v: line };
+        // Her satır için G:H:I hücrelerini birleştir
+        ws['!merges'].push({ s: { r: 1 + index, c: 6 }, e: { r: 1 + index, c: 8 } });
+    });
+
+    // Workbook'a sheet ekleyin
+    XLSX.utils.book_append_sheet(wb, ws, "Tur Detayları ve Tablo");
+
+    // Excel dosyasını indir
+    XLSX.writeFile(wb, `${etiketContent}.xlsx`);
+
+}
+</script>
+
+
+
 {% endblock %}

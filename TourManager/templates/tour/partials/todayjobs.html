@@ -1,37 +1,53 @@
 
         <tr>
-            <td>{{ today.day.operation.ticket|default:"----" }}</td>
+            <td><a href="{% url 'update_operation' today.day.operation.id %}">{{ today.day.operation.ticket|default:"----" }}</a></td>
             <td>{{ today.operation_type|default:"----" }}</td>
             <td>{{ today.description|default:"----" }}</td>
+            <td>{{ today.pick_time|time:"H:i"|default:"----" }}</td>
             <td>{{ today.tour|default:"---" }}</td>
             <td>{{ today.transfer|default:"----" }}</td>
             <td>{{ today.vehicle|default:"----" }}</td>
             <td>{{ today.guide|default:"----" }}</td>
             <td>{{ today.activity|default:"----" }}</td>
-            <td>{{ today.museum|default:"----" }}</td>
+            <td>
+                {% if today.new_museum.all %}
+                    {% for museum in today.new_museum.all %}
+                        {{ forloop.counter }}) {{ museum.name }}{% if not forloop.last %}, {% endif %}<br>
+                    {% endfor %}
+                {% else %}
+                    ----
+                {% endif %}
+            </td>
             <td>{{ today.hotel|default:"----" }}</td>
             <td>{{ today.room_type|default:"----" }}</td>
             {% if today.hotel_price == 0 %}
                 <td>----</td>
             {% else %}
-                <td>{{ today.hotel_price }}</td>
+                <td>{{ today.hotel_price }} {{ today.hotel_currency }}</td>
             {% endif %}
             {% if today.guide_price == 0 %}
                 <td>----</td>
             {% else %}
-                <td>{{ today.guide_price }}</td>
+                <td>{{ today.guide_price }} {{ today.guide_currency }}</td>
             {% endif %}
             {% if today.activity_price == 0 %}
                 <td>----</td>
             {% else %}
-                <td>{{ today.activity_price }}</td>
+                <td>{{ today.activity_price }} {{ today.activity_currency }}</td>
             {% endif %}
             {% if today.museym_price == 0 %}
                 <td>----</td>
             {% else %}
-                <td>{{ today.museym_price }}</td>
+                <td>{{ today.museym_price }} {{ today.museum_currency }}</td>
             {% endif %}
 
-            <td>{{ today.cost|default:"----" }}</td>
             <td>{{ today.activity_cost|default:"----" }}</td>
+            {% if today.supplier == None %}
+                <td>{{ today.cost|default:"----" }}</td>
+            {% else %}
+                <td>{{ today.supplier|default:"----" }}</td>
+            {% endif %}
+            <td>{{ today.driver|default:"----" }}</td>
+            <td>{{ today.driver_phone|default:"----" }}</td>
+            <td>{{ today.plaka|default:"----" }}</td>
         </tr>

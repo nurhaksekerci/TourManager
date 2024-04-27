@@ -1,13 +1,16 @@
-<hr class="my-4">
 <div id="formitem-{{ day.id }}">
     <form hx-post="{% url 'create_operation_item' day.id %}" hx-target="#opertaion-day"  hx-on="htmx:afterRequest: this.closest('#close').remove()" hx-swap="beforeend" hx-trigger="click from:#submit-item-all">
-        {% csrf_token %}  <!-- CSRF token ekleme -->
+        {{ formitem.id }}
         <div class="row">
             <div class="col-md-3 align-self-end">
                 <label for="{{ formitem.operation_type.id_for_label }}">{{ formitem.operation_type.label }}</label>
                 {{ formitem.operation_type }}
             </div>
-            <div class="col-md-9 align-self-end">
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.pick_time.id_for_label }}">{{ formitem.pick_time.label }}</label>
+                {{ formitem.pick_time }}
+            </div>
+            <div class="col-md-6 align-self-end">
                 <label for="{{ formitem.description.id_for_label }}">{{ formitem.description.label }}</label>
                 {{ formitem.description }}
             </div>
@@ -32,38 +35,251 @@
                 {{ formitem.activity }}
             </div>
             <div class="col-md-3 align-self-end">
-                <label for="{{ formitem.museum.id_for_label }}">{{ formitem.museum.label }}</label>
-                {{ formitem.museum }}
-            </div>
-            <div class="col-md-3 align-self-end">
                 <label for="{{ formitem.hotel.id_for_label }}">{{ formitem.hotel.label }}</label>
                 {{ formitem.hotel }}
             </div>
+
             <div class="col-md-3 align-self-end">
                 <label for="{{ formitem.room_type.id_for_label }}">{{ formitem.room_type.label }}</label>
                 {{ formitem.room_type }}
             </div>
-            
+
             <div class="col-md-3 align-self-end">
                 <label for="{{ formitem.activity_price.id_for_label }}">{{ formitem.activity_price.label }}</label>
                 {{ formitem.activity_price }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.activity_currency.id_for_label }}">{{ formitem.activity_currency.label }}</label>
+                {{ formitem.activity_currency }}
             </div>
             <div class="col-md-3 align-self-end">
                 <label for="{{ formitem.museym_price.id_for_label }}">{{ formitem.museym_price.label }}</label>
                 {{ formitem.museym_price }}
             </div>
             <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.museum_currency.id_for_label }}">{{ formitem.museum_currency.label }}</label>
+                {{ formitem.museum_currency }}
+            </div>
+            <div class="col-md-3 align-self-end">
                 <label for="{{ formitem.hotel_price.id_for_label }}">{{ formitem.hotel_price.label }}</label>
                 {{ formitem.hotel_price }}
             </div>
             <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.hotel_currency.id_for_label }}">{{ formitem.hotel_currency.label }}</label>
+                {{ formitem.hotel_currency }}
+            </div>
+            <div class="col-md-3 align-self-end">
                 <label for="{{ formitem.guide_price.id_for_label }}">{{ formitem.guide_price.label }}</label>
                 {{ formitem.guide_price }}
-                
             </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.guide_currency.id_for_label }}">{{ formitem.guide_currency.label }}</label>
+                {{ formitem.guide_currency }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.other_price.id_for_label }}">{{ formitem.other_price.label }}</label>
+                {{ formitem.other_price }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.other_currency.id_for_label }}">{{ formitem.other_currency.label }}</label>
+                {{ formitem.other_currency }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.activity_cost.id_for_label }}">{{ formitem.activity_cost.label }}</label>
+                {{ formitem.activity_cost }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.supplier.id_for_label }}">{{ formitem.supplier.label }}</label>
+                {{ formitem.supplier }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.vehicle_price.id_for_label }}">{{ formitem.vehicle_price.label }}</label>
+                {{ formitem.vehicle_price }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.driver.id_for_label }}">{{ formitem.driver.label }}</label>
+                {{ formitem.driver }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.driver_phone.id_for_label }}">{{ formitem.driver_phone.label }}</label>
+                {{ formitem.driver_phone }}
+            </div>
+            <div class="col-md-3 align-self-end">
+                <label for="{{ formitem.plaka.id_for_label }}">{{ formitem.plaka.label }}</label>
+                {{ formitem.plaka }}
+            </div>
+            <div class="col-md-6 align-self-end">
+                <label for="{{ formitem.new_museum.id_for_label }}">{{ formitem.new_museum.label }}</label>
+                {{ formitem.new_museum }}
+            </div>
+            <div class="col-md-3 align-self-end my-2">
+                <button type="button" class="btn btn-danger" hx-on="click: this.closest('form').remove()">İptal</button>
+            </div>
+
         </div>
     </form>
 </div>
-    
-        
-    
+
+
+{% block js %}
+<script>
+function fetchHotelsAndUpdateSelect() {
+  fetch('/api/get-hotels/')
+    .then(response => response.json())
+    .then(data => {
+      const select = document.getElementById('id_hotel');
+      select.innerHTML = ''; // Mevcut seçenekleri temizle
+      data.hotels.forEach(hotel => {
+        const option = new Option(hotel.name, hotel.id);
+        select.add(option);
+      });
+    })
+    .catch(error => console.error('Error fetching hotels:', error));
+}
+
+// id_hotel id'sine sahip select öğesine tıklanınca AJAX isteğini tetikle
+document.querySelector('label[for="id_hotel"]').addEventListener('dblclick', fetchHotelsAndUpdateSelect);
+</script>
+
+
+
+    <script>
+        document.querySelectorAll('select[name="operation_type"]').forEach(select => {
+          select.addEventListener('change', function(event) {
+            // Tüm etiketlerin rengini sıfırla
+            const allLabels = document.querySelectorAll('label');
+            allLabels.forEach(label => {
+              label.style.color = ''; // Varsayılan rengi uygula
+            });
+
+
+            const index = Array.from(document.querySelectorAll('select[name="operation_type"]')).indexOf(event.target);
+
+            let labels = [];
+
+            if (event.target.value === "Karsilama" || event.target.value === "Ugurlama" || event.target.value === "Arac") {
+              // Karşılama ve Uğurlama için etiketler
+              labels = [
+                'label[for="id_transfer"]',
+                'label[for="id_vehicle"]',
+                'label[for="id_pick_time"]',
+                'label[for="id_description"]',
+                'label[for="id_guide"]',
+                'label[for="id_guide_price"]',
+                'label[for="id_guide_currency"]',
+                'label[for="id_room_type"]',
+                'label[for="id_other_currency"]',
+                'label[for="id_other_price"]',
+                'label[for="id_hotel"]',
+                'label[for="id_hotel_price"]',
+                'label[for="id_hotel_currency"]',
+              ];
+            } else if (event.target.value === "Tur" || event.target.value === "TurTransfer" || event.target.value === "TransferTur") {
+              // Tur, TurTransfer ve TransferTur için etiketler
+              labels = [
+                'label[for="id_tour"]',
+                'label[for="id_vehicle"]',
+                'label[for="id_pick_time"]',
+                'label[for="id_description"]',
+                'label[for="id_museum"]',
+                'label[for="id_museym_price"]',
+                'label[for="id_museum_currency"]',
+                'label[for="id_guide"]',
+                'label[for="id_guide_price"]',
+                'label[for="id_guide_currency"]',
+                'label[for="id_hotel"]',
+                'label[for="id_hotel_price"]',
+                'label[for="id_hotel_currency"]',
+                'label[for="id_room_type"]',
+                'label[for="id_other_price"]',
+                'label[for="id_other_currency"]',
+              ];
+
+            } else if (event.target.value === "Aktivite") {
+              // Tur, TurTransfer ve TransferTur için etiketler
+              labels = [
+                'label[for="id_pick_time"]',
+                'label[for="id_description"]',
+                'label[for="id_activity"]',
+                'label[for="id_activity_price"]',
+                'label[for="id_activity_currency"]',
+                'label[for="id_guide"]',
+                'label[for="id_guide_price"]',
+                'label[for="id_guide_currency"]',
+                'label[for="id_hotel"]',
+                'label[for="id_hotel_price"]',
+                'label[for="id_hotel_currency"]',
+                'label[for="id_room_type"]',
+                'label[for="id_other_currency"]',
+                'label[for="id_other_price"]',
+              ];
+            } else if (event.target.value === "Rehber" || event.target.value === "Muze") {
+              // Tur, TurTransfer ve TransferTur için etiketler
+              labels = [
+                'label[for="id_pick_time"]',
+                'label[for="id_description"]',
+                'label[for="id_guide"]',
+                'label[for="id_guide_price"]',
+                'label[for="id_guide_currency"]',
+                'label[for="id_museum"]',
+                'label[for="id_museym_price"]',
+                'label[for="id_museum_currency"]',
+                'label[for="id_hotel"]',
+                'label[for="id_room_type"]',
+                'label[for="id_hotel_price"]',
+                'label[for="id_hotel_currency"]',
+                'label[for="id_other_currency"]',
+                'label[for="id_other_price"]',
+              ];
+            } else if (event.target.value === "Aracli Rehber") {
+              // Tur, TurTransfer ve TransferTur için etiketler
+              labels = [
+                'label[for="id_pick_time"]',
+                'label[for="id_description"]',
+                'label[for="id_vehicle"]',
+                'label[for="id_guide"]',
+                'label[for="id_guide_price"]',
+                'label[for="id_guide_currency"]',
+                'label[for="id_museum"]',
+                'label[for="id_museym_price"]',
+                'label[for="id_museum_currency"]',
+                'label[for="id_hotel"]',
+                'label[for="id_hotel_price"]',
+                'label[for="id_hotel_currency"]',
+                'label[for="id_room_type"]',
+                'label[for="id_other_currency"]',
+                'label[for="id_other_price"]',
+              ];
+
+            } else if (event.target.value === "Otel") {
+              // Tur, TurTransfer ve TransferTur için etiketler
+              labels = [
+                'label[for="id_pick_time"]',
+                'label[for="id_description"]',
+                'label[for="id_room_type"]',
+                'label[for="id_hotel"]',
+                'label[for="id_hotel_currency"]',
+                'label[for="id_hotel_price"]',
+                'label[for="id_room_type"]',
+                'label[for="id_other_currency"]',
+                'label[for="id_other_price"]',
+              ];
+            }
+
+            // Seçilen değere göre ilgili etiketlerin rengini değiştir
+            labels.forEach(label => {
+              const labelElements = document.querySelectorAll(label);
+              if (labelElements.length > index) {
+                labelElements[index].style.color = 'red';
+              }
+            });
+          });
+
+        });
+    </script>
+{% endblock js %}
+
+
+
+
+

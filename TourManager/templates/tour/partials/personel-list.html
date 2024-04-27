@@ -4,6 +4,7 @@
     <td>{{ personel.user.last_name }}</td>
     <td>{{ personel.user.email }}</td>
     <td>{{ personel.user.username }}</td>
+    <td>{{ personel.job }}</td>
     {% if personel.is_active == True %}
         <td>Evet</td>
     {% else %}
@@ -16,5 +17,4 @@
         <button class="btn btn-secondary" hx-delete="{% url 'delete_personel' personel.id %}" hx-confirm="Silmek istediğine emin misin?" hx-target="#personel-{{ personel.id }}">Sil</button>
     </td>
 </tr>
-        
-        
+

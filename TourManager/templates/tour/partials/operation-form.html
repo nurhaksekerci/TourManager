@@ -1,4 +1,4 @@
-<form hx-post="{% url createUrl %}" hx-target="#opertaion-day" hx-swap="beforeend" hx-trigger="click from:#submit-all">
+<form hx-post="{% url 'create_operation' %}" hx-target="#opertaion-day" hx-swap="beforeend" hx-trigger="click from:#submit-all">
     {% csrf_token %}  <!-- CSRF token ekleme -->
     <div class="row">
         <div class="col-md-2 align-self-end">
@@ -10,6 +10,10 @@
             {{ form.buyer_company }}
         </div>
         <div class="col-md-2 align-self-end">
+            <label for="{{ form.ticket.id_for_label }}">{{ form.ticket.label }}</label>
+            {{ form.ticket }}
+        </div>
+        <div class="col-md-2 align-self-end">
             <label for="{{ form.start.id_for_label }}">{{ form.start.label }}</label>
             {{ form.start }}
         </div>
@@ -17,23 +21,38 @@
             <label for="{{ form.finish.id_for_label }}">{{ form.finish.label }}</label>
             {{ form.finish }}
         </div>
-        <div class="col-md-1 align-self-end">
+        <div class="col-md-2 align-self-end">
             <label for="{{ form.number_passengers.id_for_label }}">{{ form.number_passengers.label }}</label>
             {{ form.number_passengers }}
         </div>
         <div class="col-md-2 align-self-end">
-            <label for="{{ form.sales_price.id_for_label }}">{{ form.sales_price.label }}</label>
-            {{ form.sales_price }}
+            <label for="{{ form.usd_sales_price.id_for_label }}">{{ form.usd_sales_price.label }}</label>
+            {{ form.usd_sales_price }}
         </div>
-        <div class="col-md-1 align-self-end">
-            <label for="{{ form.currency.id_for_label }}">{{ form.currency.label }}</label>
-            {{ form.currency }}
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.eur_sales_price.id_for_label }}">{{ form.eur_sales_price.label }}</label>
+            {{ form.eur_sales_price }}
         </div>
-        <div class="col-md-4 align-self-end">
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.tl_sales_price.id_for_label }}">{{ form.tl_sales_price.label }}</label>
+            {{ form.tl_sales_price }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.rbm_sales_price.id_for_label }}">{{ form.rbm_sales_price.label }}</label>
+            {{ form.rbm_sales_price }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.payment_type.id_for_label }}">{{ form.payment_type.label }}</label>
+            {{ form.payment_type }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.payment_channel.id_for_label }}">{{ form.payment_channel.label }}</label>
+            {{ form.payment_channel }}
+        </div>
+        <div class="col-md-6 align-self-end">
             <label for="{{ form.passenger_info.id_for_label }}">{{ form.passenger_info.label }}</label>
             {{ form.passenger_info }}
         </div>
     </div>
 </form>
-        
-    
+

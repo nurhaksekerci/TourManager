@@ -1,15 +1,15 @@
 <form hx-post="{% url createUrl %}" hx-target="#cost-list" hx-swap="beforeend" hx-on="htmx:afterRequest: this.remove()" hx-trigger="click from:#submit-all">
     {% csrf_token %}  <!-- CSRF token ekleme -->
     <div class="row">
-        <div class="col-md-2 align-self-end">
+        <div class="col-md-4 align-self-end">
             <label for="{{ form.supplier.id_for_label }}">{{ form.supplier.label }}</label>
             {{ form.supplier }}
         </div>
-        <div class="col-md-2 align-self-end">
+        <div class="col-md-4 align-self-end">
             <label for="{{ form.tour.id_for_label }}">{{ form.tour.label }}</label>
             {{ form.tour }}
         </div>
-        <div class="col-md-2 align-self-end">
+        <div class="col-md-4 align-self-end">
             <label for="{{ form.transfer.id_for_label }}">{{ form.transfer.label }}</label>
             {{ form.transfer }}
         </div>
@@ -38,8 +38,27 @@
             {{ form.currency }}
         </div>
         <div class="col-md-2 align-self-end">
+            <label for="{{ form.sell_car.id_for_label }}">{{ form.sell_car.label }}</label>
+            {{ form.sell_car }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.sell_minivan.id_for_label }}">{{ form.sell_minivan.label }}</label>
+            {{ form.sell_minivan }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.sell_minibus.id_for_label }}">{{ form.sell_minibus.label }}</label>
+            {{ form.sell_minibus }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.sell_midibus.id_for_label }}">{{ form.sell_midibus.label }}</label>
+            {{ form.sell_midibus }}
+        </div>
+        <div class="col-md-2 align-self-end">
+            <label for="{{ form.sell_bus.id_for_label }}">{{ form.sell_bus.label }}</label>
+            {{ form.sell_bus }}
+        </div>
+        <div class="col-md-1 align-self-end my-2">
             <button type="button" class="btn btn-danger" hx-on="click: this.closest('form').remove()">İptal</button>
         </div>
     </div>
 </form>
-    

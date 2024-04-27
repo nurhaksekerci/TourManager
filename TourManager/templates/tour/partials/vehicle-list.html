@@ -1,13 +1,10 @@
-<tr id="vehicle-{{ vehicle.id }}"  hx-swap="outerHTML swap:.5s" target="this">
-    <td>{{ vehicle.id }}</td>
-    <td>{{ vehicle.vehicle }}</td>
-    <td>{{ vehicle.capacity }}</td>
+<tr id="vehicle-{{ vehicle.id }}" class="d-md-table-row" hx-swap="outerHTML swap:.5s" target="this">
+    <td><p class="d-none d-md-block">{{ vehicle.vehicle }}</p></td>
+    <td><p class="d-none d-md-block">{{ vehicle.capacity }}</p></td>
     <td>
-        <button class="btn btn-secondary" hx-get="{% url 'edit_vehicle' vehicle.id %}" hx-target="#vehicle-{{ vehicle.id }}" hx-swap="outerHTML swap:.5s">
+        <button class="btn btn-secondary d-none d-md-block" hx-get="{% url 'edit_vehicle' vehicle.id %}" hx-target="#vehicle-{{ vehicle.id }}" hx-swap="outerHTML swap:.5s">
             Güncelle (更新)
         </button>
-        <button class="btn btn-secondary" hx-delete="{% url 'delete_vehicle' vehicle.id %}" hx-confirm="Silmek istediğine emin misin? (你确定要删除吗？)" hx-target="#vehicle-{{ vehicle.id }}">Sil (删除)</button>
+        <button class="btn btn-secondary d-none d-md-block mt-2" hx-delete="{% url 'delete_vehicle' vehicle.id %}" hx-confirm="Silmek istediğine emin misin? (你确定要删除吗？)" hx-target="#vehicle-{{ vehicle.id }}">Sil (删除)</button>
     </td>
 </tr>
-        
-        

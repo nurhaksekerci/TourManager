@@ -1,0 +1,68 @@
+{% extends "tour/base.html" %}
+
+{% block content %}
+<div class="container">
+    <div id="close">
+        {% if customer == False %}
+            <h1 class="text-center my-5">Ödeme Yap</h1>
+        {% else %}
+            <h1 class="text-center my-5">Ödeme Al</h1>
+        {% endif %}
+    </div>
+    <div class="row">
+        {% if customer == False %}
+            <div class="col-md-4">
+                <h2 class="text-center my-5">Araç Ödeme Yap</h2>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label>Tedarikçi Seç:</label>
+                    <select class="form-control my-3" name="supplier"> <!-- It's good practice to add a 'name' attribute -->
+                        <option>Tedarikçi Seçin</option> <!-- Assuming each supplier has an 'id' -->
+                        {% for supplier in suppliers %}
+                            <option value="{{ supplier.id }}">{{ supplier.name }}</option> <!-- Assuming each supplier has an 'id' -->
+                        {% endfor %}
+                    </select>
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </form>
+            </div>
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h2 class="text-center my-5">Aktivite Ödeme Yap</h2>
+                <form method="POST" action="{% url 'activity_payment' %}" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label>Tedarikçi Seç:</label>
+                    <select class="form-control my-3" name="supplier"> <!-- It's good practice to add a 'name' attribute -->
+                        <option>Tedarikçi Seçin</option> <!-- Assuming each supplier has an 'id' -->
+
+                        {% for activity_supplier in activity_suppliers %}
+                            <option value="{{ activity_supplier.id }}">{{ activity_supplier.name }} (Aktivite)</option> <!-- Assuming each supplier has an 'id' -->
+                        {% endfor %}
+                    </select>
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="col-md-4"></div>
+            <div class="col-md-4">
+                <h2 class="text-center my-5">Müşteri Ödeme Al</h2>
+                <form method="POST" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <label>Tur Seç:</label>
+                    <select class="form-control my-3" name="supplier"> <!-- It's good practice to add a 'name' attribute -->
+                        <option>Tur Seçin</option> <!-- Assuming each supplier has an 'id' -->
+                        {% for supplier in suppliers %}
+                            <option value="{{ supplier.id }}">{{ supplier.ticket }}</option> <!-- Assuming each supplier has an 'id' -->
+                        {% endfor %}
+                    </select>
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-primary">Kaydet</button>
+                </form>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock content %}
+

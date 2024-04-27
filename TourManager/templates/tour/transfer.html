@@ -1,28 +1,30 @@
 {% extends "tour/base.html" %}
 
 {% block content %}
-<h1 class="text-center my-5">{{ createtitle }}</h1>
-<div id="forms">
-    {% include 'tour/partials/transfer-form.html' %}
-</div>
-<button class="btn btn-success my-4 me-2" hx-get="{% url createUrl %}" hx-target="#forms" hx-swap="beforeend">Form Ekle</button>
-<button type="button" class="btn btn-primary my-4"  id="submit-all">Kaydet</button>
-<h1> {{ listTitle }}</h1>
-<div style="overflow-x: auto;">
-<table class="table table-striped table-hover table-borderless table-light align-middle">
-    <thead>
-        <tr>
-            <th>ID</th>
-            <th>GUZERGAH</th>
-            <th>ISLEMLER</th>
-        </tr>
-    </thead>
-    <tbody id="transfer-list">
-        {% for transfer in transfers %}
-            {% include "tour/partials/transfer-list.html" %}
-        {% endfor %}
-    </tbody>
-</table>
+<div class="container">
+    <h1 class="text-center my-5">{{ createtitle }}</h1>
+    <div id="forms">
+        {% include 'tour/partials/transfer-form.html' %}
+    </div>
+    <button class="btn btn-success my-4 me-2" hx-get="{% url createUrl %}" hx-target="#forms" hx-swap="beforeend">Form Ekle</button>
+    <button type="button" class="btn btn-primary my-4"  id="submit-all">Kaydet</button>
+    <h1> {{ listTitle }}</h1>
+    <div style="overflow-x: auto;">
+        <table class="table table-striped table-hover table-borderless table-light align-middle">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>GUZERGAH</th>
+                    <th>ISLEMLER</th>
+                </tr>
+            </thead>
+            <tbody id="transfer-list">
+                {% for transfer in transfers %}
+                    {% include "tour/partials/transfer-list.html" %}
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
 </div>
 
 {% endblock content %}

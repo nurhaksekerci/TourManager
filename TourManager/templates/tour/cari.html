@@ -1,0 +1,72 @@
+{% extends "tour/base.html" %}
+
+{% block content %}
+<div class="container-fluid mb-4">
+    <div class="row">
+        {% if comp_jobs %}
+            <h3 class="text-center">Tamamlanmış İşler</h3>
+        {% endif %}
+        {% if activity %}
+            <h3 class="text-center">Aktivite Carileri</h3>
+        {% endif %}
+        {% if cari %}
+            <h3 class="text-center">Cariler</h3>
+        {% endif %}
+        <div class="col-2">
+
+            <ul class="list-group mt-3" style="height:50px !important;">
+                {% for sirket in sirketler %}
+                    {% if comp_jobs %}
+                        {% include 'tour/partials/comp_jobs_tedarikciler.html' %}
+                    {% endif %}
+                    {% if activity %}
+                        {% include 'tour/partials/activity-tedarikciler.html' %}
+                    {% endif %}
+                    {% if cari  %}
+                        {% include 'tour/partials/tedarikciler.html' %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-10">
+
+
+            <div id="cari-item">
+                {% include 'tour/partials/tedarikci-isleri.html' %}
+            </div>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block js %}
+<script>
+    function printDiv(divId) {
+    var printContents = document.getElementById(divId).innerHTML;
+    var originalContents = document.body.innerHTML;
+    document.body.innerHTML = printContents;
+    window.print();
+    document.body.innerHTML = originalContents;
+}
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+<script>
+function saveToExcel(divId, fileName) {
+    // divId yerine, bu div içindeki table'ı doğrudan seçin
+    var table = document.querySelector('#' + divId + ' table');
+    if (!table) {
+        console.error('Tablo bulunamadı');
+        return;
+    }
+    var workbook = XLSX.utils.book_new();
+    var ws = XLSX.utils.table_to_sheet(table);
+    XLSX.utils.book_append_sheet(workbook, ws, "Sheet1");
+    XLSX.writeFile(workbook, fileName + '.xlsx');
+}
+
+</script>
+{% endblock js %}
+
+
+

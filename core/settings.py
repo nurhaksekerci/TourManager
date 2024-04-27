@@ -26,6 +26,10 @@ SECRET_KEY = 'django-insecure-xto$)$yb9gvz-1urs_k$zqg4cl4!&$v*b3u&epi7!w@#_*$$t_
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+SESSION_COOKIE_AGE = 3600
+SESSION_SAVE_EVERY_REQUEST = True
+LOGIN_URL = '/login/'
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -38,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'widget_tweaks',
     'TourManager',
 ]
 
@@ -107,12 +112,11 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'Europe/Istanbul'
 
 USE_I18N = True
 USE_L10N = False
 USE_TZ = True
-
 DATE_FORMAT = 'd.m.Y'
 DATETIME_FORMAT = 'd.m.Y H:i'
 SHORT_DATE_FORMAT = 'd.m.Y'

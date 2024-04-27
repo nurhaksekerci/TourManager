@@ -40,6 +40,27 @@
                         <label for="{{ form.currency.id_for_label }}">{{ form.currency.label }}</label>
                         {{ form.currency }}
                     </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.sell_car.id_for_label }}">{{ form.sell_car.label }}</label>
+                        {{ form.sell_car }}
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.sell_minivan.id_for_label }}">{{ form.sell_minivan.label }}</label>
+                        {{ form.sell_minivan }}
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.sell_minibus.id_for_label }}">{{ form.sell_minibus.label }}</label>
+                        {{ form.sell_minibus }}
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.sell_midibus.id_for_label }}">{{ form.sell_midibus.label }}</label>
+                        {{ form.sell_midibus }}
+                    </td>
+                    </td>
+                    <td class="align-self-end">
+                        <label for="{{ form.sell_bus.id_for_label }}">{{ form.sell_bus.label }}</label>
+                        {{ form.sell_bus }}
+                    </td>
                     <td style="vertical-align: bottom;" class="align-self-end">
                         <button type="submit" class="btn btn-success" style="margin-right: 2px;">Kaydet</button>
                         <button type="button" class="btn btn-danger" hx-get="{% url 'cancel_cost' cost.id %}">İptal</button>
